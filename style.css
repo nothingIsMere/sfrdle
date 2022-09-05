@@ -14,12 +14,12 @@ body {
   min-width: 100vh;
 }
 
-hr {
-  /* border: .125px solid gray; */
+/* hr {
+  border: .125px solid gray;
   min-width: 100%;
   height: .5px;
-  color: lightgrey;
-}
+  color: rgb(222, 222, 222);
+} */
 
 header {
   display: flex;
@@ -30,10 +30,11 @@ header {
   margin-top: 5px;
   font-size: 150%;
   min-width: 100%;
+  border-bottom: .125px solid lightgrey;
 }
 
 header h1 {
-  padding-bottom: 10px;
+  padding-bottom: 5px;
   font-family: 'nyt-karnakcondensed';
 }
 
@@ -57,12 +58,6 @@ header h1 {
   gap: 10px;
 }
 
-.keyboard {
-  background-color: gray;
-  height: 25%;
-  min-width: 600px; 
-}
-
 .letterbox {
   flex: 1;
   display: flex;
@@ -72,6 +67,26 @@ header h1 {
   border: 2px solid rgb(192, 189, 189);
   font-size: 250%;
   font-weight:bolder;
+}
+
+.keyboard-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
+  height: 25%;
+  min-width: 600px;
+  border: 1px solid black;
+}
+
+.keybd-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.key {
+  background: #d3d6da; 
 }
 
 
