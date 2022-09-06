@@ -2,15 +2,19 @@ let currentWord = "TRADE";
 const currentWordArray = Array.from(currentWord); 
 let  masterGuessList = [];
 const letterboxNodeList = document.querySelectorAll(".letterbox");
-const keyNodeList = document.querySelectorAll(".key");
-let keyArray = Array.from(keyNodeList); 
 let letterboxArray = Array.from(letterboxNodeList);
+// const keyNodeList = document.querySelectorAll(".key");
+// let keyArray = Array.from(keyNodeList); 
 const acceptableKeys = ["A", "B", "C", "D", "E", "F", "G",
 "H","I","J","K","L","M","N","O","P","Q","R","S","T","U","V","W","X","Y","Z",
 "a","b","c","d","e","f","g","h","i","j","k","l","m","n","o","p","q","r","s",
 "t","u","v","w","x","y","z","Enter", "Backspace",];
 let testWordArray = [];
-let offLimitsCount = 0; 
+let offLimitsCount = 0;
+
+// for(let j = 0; j < keyArray.length; j++){
+//   console.log(keyArray[j].id); 
+// }
 
 for(let i = 0; i < letterboxNodeList.length; i++){
   
@@ -64,9 +68,11 @@ window.addEventListener("keydown", (e) => {
           let currentLetterBox = document.getElementById(`letterbox-${i + (((masterGuessList.length)/5) - 1)*5}`);
           currentLetterBox.style.backgroundColor = "#6aaa64"; //green
           currentLetterBox.style.color = "white";
-          currentLetterBox.style.border = "none"; 
+          currentLetterBox.style.border = "none";
 
-                  
+          let currentKey = document.getElementById(`${testWordArray[i]}`);
+          currentKey.style.backgroundColor = "#6aaa64";
+          currentKey.style.color = "white";
  
         }
         else if(currentWordArray.includes(testWordArray[i])){
@@ -74,10 +80,11 @@ window.addEventListener("keydown", (e) => {
           let currentLetterBox = document.getElementById(`letterbox-${i + (((masterGuessList.length)/5) - 1)*5}`);
           currentLetterBox.style.backgroundColor = "#c9b458"; //yellow
           currentLetterBox.style.color = "white";
-          currentLetterBox.style.border = "none"; 
-
-           
-        
+          currentLetterBox.style.border = "none";
+          
+          let currentKey = document.getElementById(`${testWordArray[i]}`);
+          currentKey.style.backgroundColor = "#c9b458";
+          currentKey.style.color = "white";
         }
         else{
           
@@ -86,8 +93,9 @@ window.addEventListener("keydown", (e) => {
           currentLetterBox.style.color = "white";
           currentLetterBox.style.border = "none";
 
-           
-        
+          let currentKey = document.getElementById(`${testWordArray[i]}`);
+          currentKey.style.backgroundColor = "#787c7e";
+          currentKey.style.color = "white";
         }
       }
     }

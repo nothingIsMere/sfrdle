@@ -74,19 +74,41 @@ header h1 {
   flex-direction: column;
   align-items: center;
   justify-content: space-between;
-  height: 25%;
-  min-width: 600px;
-  border: 1px solid black;
+  height: 22%;
+  min-width: 500px;
+  /* border: 1px solid black; */
 }
 
 .keybd-row {
   display: flex;
   align-items: center;
   justify-content: space-between;
+  min-width: 95%;
 }
 
 .key {
-  background: #d3d6da; 
+  background: #d3d6da;
+  width: 9%;
+  height: 60px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border:.5px solid #d3d6da;
+  border-radius: 10%;
+  font-weight:bold;
+}
+
+.keybd-row-3 {
+  min-width: 510px;
+}
+
+.keybd-row-1 {
+  min-width: 510px;
+}
+
+#ENTER, #BACKSPACE {
+  padding: 0px 7px;
+  width: auto;
 }
 
 
