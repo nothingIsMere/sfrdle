@@ -76,7 +76,9 @@ window.addEventListener("keydown", (e) => {
             let currentLetterBox = document.getElementById(`letterbox-${i + (((masterGuessList.length)/5) - 1)*5}`);
             let currentKey = document.getElementById(`${testWordArray[i]}`);
             
+            currentLetterBox.classList.remove("near-success"); 
             currentLetterBox.classList.add("success");
+            currentKey.classList.remove("near-success"); 
             currentKey.classList.add("success");
             
           }
@@ -86,8 +88,10 @@ window.addEventListener("keydown", (e) => {
             let currentKey = document.getElementById(`${testWordArray[i]}`);
             
             currentLetterBox.classList.add("near-success");
-            currentKey.classList.add("near-success");
-            
+
+            if(!currentKey.classList.contains("success")){
+              currentKey.classList.add("near-success");
+            }
           }
         }
         else{
