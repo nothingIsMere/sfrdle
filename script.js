@@ -116,7 +116,112 @@ window.addEventListener("keydown", (e) => {
 })
 
 
+//for keyboard clicks (amend as needed to match above)
 
+for(let i = 0; i < keyNodeList.length; i++){
+
+  keyNodeList[i].addEventListener("click", (e) => {
+
+    if(e.target.textContent === "BACK"){
+
+      if(letterCount > 0){
+        letterCount -= 1; 
+      }
+
+      if(masterGuessList.length === offLimitsCount){
+        return; 
+      }
+
+      masterGuessList.pop();
+      letterboxArray[masterGuessList.length].textContent = "";
+      letterboxArray[masterGuessList.length].style.border = "2px solid rgb(192, 189, 189)";
+
+    }
+
+    else if(e.target.textContent === "ENTER"){ 
+
+      if(masterGuessList.length%5 === 0 & masterGuessList.length > 0){
+        letterCount = 0; 
+        offLimitsCount = masterGuessList.length;
+      }
+
+
+
+      if((masterGuessList.length)%5 !== 0 || masterGuessList.length === 0){
+
+        alert("Not enough letters");
+        return;
+
+      }
+      else{
+
+        testWordArray = [];
+        for(let i = masterGuessList.length - 5; i < masterGuessList.length; i++){
+
+          testWordArray.push(masterGuessList[i].toUpperCase());
+
+        }
+
+        for(let i = 0; i < testWordArray.length; i++){
+
+          if(currentWordArray.includes(testWordArray[i])){
+
+            if(currentWordArray[i] === testWordArray[i]){
+              let currentLetterBox = document.getElementById(`letterbox-${i + (((masterGuessList.length)/5) - 1)*5}`);
+              currentLetterBox.style.backgroundColor = "#6aaa64"; //green
+              currentLetterBox.style.color = "white";
+              currentLetterBox.style.border = "none";
+
+              let currentKey = document.getElementById(`${testWordArray[i]}`);
+              currentKey.style.backgroundColor = "#6aaa64";
+
+              currentKey.style.color = "white";
+            }
+            else{
+
+              let currentLetterBox = document.getElementById(`letterbox-${i + (((masterGuessList.length)/5) - 1)*5}`);
+              currentLetterBox.style.backgroundColor = "#c9b458"; //yellow
+              currentLetterBox.style.color = "white";
+              currentLetterBox.style.border = "none";
+
+              let currentKey = document.getElementById(`${testWordArray[i]}`);
+              currentKey.style.backgroundColor = "#c9b458";
+
+              currentKey.style.color = "white";
+            }
+
+          }
+          else{
+
+            let currentLetterBox = document.getElementById(`letterbox-${i + (((masterGuessList.length)/5) - 1)*5}`);
+            currentLetterBox.style.backgroundColor = "#787c7e"; //gray
+            currentLetterBox.style.color = "white";
+            currentLetterBox.style.border = "none";
+
+            let currentKey = document.getElementById(`${testWordArray[i]}`);
+            currentKey.style.backgroundColor = "#787c7e";
+            currentKey.style.color = "white";
+          }
+        }
+      }
+    }
+
+    else{
+
+      if(letterCount >= 5){
+        return; 
+      }
+
+      masterGuessList.push(e.target.textContent);
+      letterboxArray[masterGuessList.length - 1].textContent = e.target.textContent.toUpperCase();
+      letterboxArray[masterGuessList.length - 1].style.border = "2px solid #777";
+      letterCount += 1; 
+
+    }
+
+  })
+
+}
 
 
 
