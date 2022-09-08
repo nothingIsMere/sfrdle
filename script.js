@@ -1,24 +1,3 @@
-// Convert rgb to hex 
-function convertRgb(rgb) {
-  // This will choose the correct separator, if there is a "," in your value it will use a comma, otherwise, a separator will not be used.
-  let separator = rgb.indexOf(",") > -1 ? "," : " ";
-  // This will convert "rgb(r,g,b)" into [r,g,b] so we can use the "+" to convert them back to numbers before using toString 
-  rgb = rgb.substr(4).split(")")[0].split(separator);
-  // Here we will convert the decimal values to hexadecimal using toString(16)
-  let r = (+rgb[0]).toString(16),
-    g = (+rgb[1]).toString(16),
-    b = (+rgb[2]).toString(16);
-  if (r.length == 1)
-    r = "0" + r;
-  if (g.length == 1)
-    g = "0" + g;
-  if (b.length == 1)
-    b = "0" + b;
-  // The return value is a concatenation of "#" plus the rgb values which will give you your hex
-  return "#" + r + g + b;
-}
-
-
 let currentWord = "HOOPS";
 const currentWordArray = Array.from(currentWord); 
 let  masterGuessList = [];
@@ -36,113 +15,6 @@ let letterCount = 0;
 for(let i = 0; i < letterboxNodeList.length; i++){
   
   letterboxNodeList[i].id = `letterbox-${i}`;
-
-}
-
-//for keyboard clicks
-
-for(let i = 0; i < keyNodeList.length; i++){
-  
-  keyNodeList[i].addEventListener("click", (e) => {
-  
-    if(e.target.textContent === "BACK"){
-  
-      if(letterCount > 0){
-        letterCount -= 1; 
-      }
-  
-      if(masterGuessList.length === offLimitsCount){
-        return; 
-      }
-      
-      masterGuessList.pop();
-      letterboxArray[masterGuessList.length].textContent = "";
-      letterboxArray[masterGuessList.length].style.border = "2px solid rgb(192, 189, 189)";
-    
-    }
-    
-    else if(e.target.textContent === "ENTER"){ 
-  
-      if(masterGuessList.length%5 === 0 & masterGuessList.length > 0){
-        letterCount = 0; 
-        offLimitsCount = masterGuessList.length;
-      }
-        
-     
-  
-      if((masterGuessList.length)%5 !== 0 || masterGuessList.length === 0){
-        
-        alert("Not enough letters");
-        return;
-      
-      }
-      else{
-        
-        testWordArray = [];
-        for(let i = masterGuessList.length - 5; i < masterGuessList.length; i++){
-          
-          testWordArray.push(masterGuessList[i].toUpperCase());
-        
-        }
-        
-        for(let i = 0; i < testWordArray.length; i++){
-
-          if(currentWordArray.includes(testWordArray[i])){
-            
-            if(currentWordArray[i] === testWordArray[i]){
-              let currentLetterBox = document.getElementById(`letterbox-${i + (((masterGuessList.length)/5) - 1)*5}`);
-              currentLetterBox.style.backgroundColor = "#6aaa64"; //green
-              currentLetterBox.style.color = "white";
-              currentLetterBox.style.border = "none";
-        
-              let currentKey = document.getElementById(`${testWordArray[i]}`);
-              currentKey.style.backgroundColor = "#6aaa64";
-
-              currentKey.style.color = "white";
-            }
-            else{
-              
-              let currentLetterBox = document.getElementById(`letterbox-${i + (((masterGuessList.length)/5) - 1)*5}`);
-              currentLetterBox.style.backgroundColor = "#c9b458"; //yellow
-              currentLetterBox.style.color = "white";
-              currentLetterBox.style.border = "none";
-              
-              let currentKey = document.getElementById(`${testWordArray[i]}`);
-              currentKey.style.backgroundColor = "#c9b458";
-
-              currentKey.style.color = "white";
-            }
-          
-          }
-          else{
-            
-            let currentLetterBox = document.getElementById(`letterbox-${i + (((masterGuessList.length)/5) - 1)*5}`);
-            currentLetterBox.style.backgroundColor = "#787c7e"; //gray
-            currentLetterBox.style.color = "white";
-            currentLetterBox.style.border = "none";
-        
-            let currentKey = document.getElementById(`${testWordArray[i]}`);
-            currentKey.style.backgroundColor = "#787c7e";
-            currentKey.style.color = "white";
-          }
-        }
-      }
-    }
-    
-    else{
-  
-      if(letterCount >= 5){
-        return; 
-      }
-  
-      masterGuessList.push(e.target.textContent);
-      letterboxArray[masterGuessList.length - 1].textContent = e.target.textContent.toUpperCase();
-      letterboxArray[masterGuessList.length - 1].style.border = "2px solid #777";
-      letterCount += 1; 
-      
-    }
-  
-  })
 
 }
 
@@ -195,58 +67,39 @@ window.addEventListener("keydown", (e) => {
       
       }
       
-      for(let i = 0; i < testWordArray.length; i++){ //once i get a green letter, this executes only once. Must mean testWordArray is 0 units long
-
-        console.log(`cycle ${i} of testArray`);
+      for(let i = 0; i < testWordArray.length; i++){
+        
+        let currentLetterBox = document.getElementById(`letterbox-${i + (((masterGuessList.length)/5) - 1)*5}`);
+        let currentKey = document.getElementById(`${testWordArray[i]}`);
 
         if(currentWordArray.includes(testWordArray[i])){
           
           if(currentWordArray[i] === testWordArray[i]){
-            let currentLetterBox = document.getElementById(`letterbox-${i + (((masterGuessList.length)/5) - 1)*5}`);
-            currentLetterBox.style.backgroundColor = "#6aaa64"; //green
-            currentLetterBox.style.color = "white";
-            currentLetterBox.style.border = "none";
-      
-            let currentKey = document.getElementById(`${testWordArray[i]}`);
-            currentKey.style.backgroundColor = "#6aaa64";
-            currentKey.style.color = "white";
+            
+            currentLetterBox.classList.remove("near-success"); 
+            currentLetterBox.classList.add("success");
+            currentKey.classList.remove("near-success"); 
+            currentKey.classList.add("success");
+            
           }
           else{
             
-            let currentLetterBox = document.getElementById(`letterbox-${i + (((masterGuessList.length)/5) - 1)*5}`);
-            currentLetterBox.style.backgroundColor = "#c9b458"; //yellow
-            currentLetterBox.style.color = "white";
-            currentLetterBox.style.border = "none";
-            
-            let currentKey = document.getElementById(`${testWordArray[i]}`);
+            currentLetterBox.classList.add("near-success");
 
-            console.log(`included but not on target, ${convertRgb(currentKey.style.backgroundColor)}`);
-
-            if(convertRgb(currentKey.style.backgroundColor) === "#6aaa64"){
-              return;
-            }
-            else{
-              currentKey.style.backgroundColor = "#c9b458";
-              currentKey.style.color = "white";
+            if(!currentKey.classList.contains("success")){
+              currentKey.classList.add("near-success");
             }
           }
-        
         }
         else{
           
-          let currentLetterBox = document.getElementById(`letterbox-${i + (((masterGuessList.length)/5) - 1)*5}`);
-          currentLetterBox.style.backgroundColor = "#787c7e"; //gray
-          currentLetterBox.style.color = "white";
-          currentLetterBox.style.border = "none";
-      
-          let currentKey = document.getElementById(`${testWordArray[i]}`);
-          currentKey.style.backgroundColor = "#787c7e"
-          currentKey.style.color = "white";
+          currentLetterBox.classList.add("fail");
+          currentKey.classList.add("fail");
+        
         }
       }
     }
   }
-  
   else{
 
     if(letterCount >= 5){
