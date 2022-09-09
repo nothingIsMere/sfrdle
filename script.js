@@ -32,7 +32,12 @@ let offLimitsCount = 0;
 let letterCount = 0;
 let successCount = 0;
 const modalWarning = document.getElementById("modal-warning"); 
-const modalGameOver = document.getElementById("modal-game-over"); 
+const modalGameOver = document.getElementById("modal-game-over");
+const closeBtn = document.getElementById("close");
+
+closeBtn.onclick = function() {
+  modalGameOver.style.display = "none";
+}
 
 for(let i = 0; i < letterboxNodeList.length; i++){
   
@@ -129,7 +134,8 @@ window.addEventListener("keydown", (e) => {
     }
 
     if(masterGuessList.length === 30){
-      modalGameOver.textContent = "Do you even SFR?";
+      const loseText = document.getElementById("game-over-text");
+      loseText.textContent = "You lose"; 
       setTimeout(() => {
         modalGameOver.style.display = "flex";
       }, 500);

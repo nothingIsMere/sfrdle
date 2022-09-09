@@ -137,20 +137,19 @@ header h1 {
 }
 
 #modal-game-over {
-  display: flex;
+  /* display: block; */
+  display: none;
   flex-direction: column;
   position: fixed; /* Stay in place */
   z-index: 1; /* Sit on top */
-  width: 35%; 
-  height: 75%; 
-  align-items: center;
-  justify-content: center;
+  width: 25%; 
+  height: 35%; 
   color:#000;
   background-color: #fff;
-  border: 1px solid #000;
-  margin-top: 75px;
-  border-radius: 2%;
-
+  margin-top: 200px;
+  /* border-radius: 3%; */
+  justify-content: flex-start;
+  filter: drop-shadow(0px 0px 16px #777);
 }
 
 .warning-text {
@@ -166,4 +165,24 @@ header h1 {
   border: "2px solid #777";
 }
 
+#close {
+  padding-right: 12px;
+  padding-top: 12px;
+}
 
+#close:hover {
+  cursor: pointer;
+}
+
+#close-container{
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+}
+
+#text-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 80%;
+}
