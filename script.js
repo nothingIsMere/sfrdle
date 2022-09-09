@@ -1,4 +1,23 @@
 let currentWord = "HOOPS";
+let wordList = [
+  "SCORE",
+  "TRADE",
+  "CHEAT",
+  "HOOPS",
+  "KAWHI",
+  "KEVIN",
+  "BRIAN",
+  "CHAMP",
+  "TITLE",
+  "POINT",
+  "STEAL",
+  "BLOCK",
+  "JOKIC",
+  "BULLS",
+  "MAGIC",
+  "SQUAD",
+  "GREEK"
+  ];
 const currentWordArray = Array.from(currentWord); 
 let  masterGuessList = [];
 const letterboxNodeList = document.querySelectorAll(".letterbox");
@@ -10,7 +29,10 @@ const acceptableKeys = ["A", "B", "C", "D", "E", "F", "G",
 "t","u","v","w","x","y","z","Enter", "Backspace",];
 let testWordArray = [];
 let offLimitsCount = 0;
-let letterCount = 0;  
+let letterCount = 0;
+let successCount = 0;
+const modalWarning = document.getElementById("modal-warning"); 
+const modalGameOver = document.getElementById("modal-game-over"); 
 
 for(let i = 0; i < letterboxNodeList.length; i++){
   
@@ -50,11 +72,16 @@ window.addEventListener("keydown", (e) => {
     if(masterGuessList.length%5 === 0 & masterGuessList.length > 0){
       letterCount = 0;
       offLimitsCount = masterGuessList.length; 
+      successCount = 0;
     }
       
     if((masterGuessList.length)%5 !== 0 || masterGuessList.length === 0){
       
-      alert("Not enough letters");
+      modalWarning.style.display = "flex";
+
+      setTimeout(() => {
+        modalWarning.style.display = "none";
+      }, 1050); 
       return;
     
     }
@@ -80,6 +107,7 @@ window.addEventListener("keydown", (e) => {
             currentLetterBox.classList.add("success");
             currentKey.classList.remove("near-success"); 
             currentKey.classList.add("success");
+            successCount += 1;
             
           }
           else{
@@ -99,6 +127,13 @@ window.addEventListener("keydown", (e) => {
         }
       }
     }
+
+    if(masterGuessList.length === 30){
+      modalGameOver.textContent = "Do you even SFR?";
+      setTimeout(() => {
+        modalGameOver.style.display = "flex";
+      }, 500);
+    }
   }
   else{
 
@@ -108,120 +143,226 @@ window.addEventListener("keydown", (e) => {
 
     masterGuessList.push(e.key);
     letterboxArray[masterGuessList.length - 1].textContent = e.key.toUpperCase();
-    letterboxArray[masterGuessList.length - 1].style.border = "2px solid #777";
+    letterboxArray[masterGuessList.length - 1].classList.add("filled-letterbox");
     letterCount += 1;
     
   }
 
+  if(successCount === 5){
+    setTimeout(() => {
+      modalGameOver.style.display = "flex";
+    }, 1050);
+  }
+
 })
 
-
-//for keyboard clicks (amend as needed to match above)
+//for keyboard clicks (new)
 
 for(let i = 0; i < keyNodeList.length; i++){
 
   keyNodeList[i].addEventListener("click", (e) => {
-
+    
     if(e.target.textContent === "BACK"){
 
       if(letterCount > 0){
         letterCount -= 1; 
       }
-
+      
+  
       if(masterGuessList.length === offLimitsCount){
         return; 
       }
-
+      
       masterGuessList.pop();
       letterboxArray[masterGuessList.length].textContent = "";
       letterboxArray[masterGuessList.length].style.border = "2px solid rgb(192, 189, 189)";
-
+    
     }
-
-    else if(e.target.textContent === "ENTER"){ 
-
+    
+    else if(e.target.textContent === "ENTER"){
+    
       if(masterGuessList.length%5 === 0 & masterGuessList.length > 0){
-        letterCount = 0; 
-        offLimitsCount = masterGuessList.length;
+        letterCount = 0;
+        offLimitsCount = masterGuessList.length; 
       }
-
-
-
+        
       if((masterGuessList.length)%5 !== 0 || masterGuessList.length === 0){
-
-        alert("Not enough letters");
+        
+        modalWarning.style.display = "flex";
+  
+        setTimeout(() => {
+          modalWarning.style.display = "none";
+        }, 1050); 
         return;
-
+      
       }
       else{
-
+        
         testWordArray = [];
         for(let i = masterGuessList.length - 5; i < masterGuessList.length; i++){
-
+          
           testWordArray.push(masterGuessList[i].toUpperCase());
-
+        
         }
-
+        
         for(let i = 0; i < testWordArray.length; i++){
-
+          
+          let currentLetterBox = document.getElementById(`letterbox-${i + (((masterGuessList.length)/5) - 1)*5}`);
+          let currentKey = document.getElementById(`${testWordArray[i]}`);
+  
           if(currentWordArray.includes(testWordArray[i])){
-
+            
             if(currentWordArray[i] === testWordArray[i]){
-              let currentLetterBox = document.getElementById(`letterbox-${i + (((masterGuessList.length)/5) - 1)*5}`);
-              currentLetterBox.style.backgroundColor = "#6aaa64"; //green
-              currentLetterBox.style.color = "white";
-              currentLetterBox.style.border = "none";
-
-              let currentKey = document.getElementById(`${testWordArray[i]}`);
-              currentKey.style.backgroundColor = "#6aaa64";
-
-              currentKey.style.color = "white";
+              
+              currentLetterBox.classList.remove("near-success"); 
+              currentLetterBox.classList.add("success");
+              currentKey.classList.remove("near-success"); 
+              currentKey.classList.add("success");
+              
             }
             else{
-
-              let currentLetterBox = document.getElementById(`letterbox-${i + (((masterGuessList.length)/5) - 1)*5}`);
-              currentLetterBox.style.backgroundColor = "#c9b458"; //yellow
-              currentLetterBox.style.color = "white";
-              currentLetterBox.style.border = "none";
-
-              let currentKey = document.getElementById(`${testWordArray[i]}`);
-              currentKey.style.backgroundColor = "#c9b458";
-
-              currentKey.style.color = "white";
+              
+              currentLetterBox.classList.add("near-success");
+  
+              if(!currentKey.classList.contains("success")){
+                currentKey.classList.add("near-success");
+              }
             }
-
           }
           else{
-
-            let currentLetterBox = document.getElementById(`letterbox-${i + (((masterGuessList.length)/5) - 1)*5}`);
-            currentLetterBox.style.backgroundColor = "#787c7e"; //gray
-            currentLetterBox.style.color = "white";
-            currentLetterBox.style.border = "none";
-
-            let currentKey = document.getElementById(`${testWordArray[i]}`);
-            currentKey.style.backgroundColor = "#787c7e";
-            currentKey.style.color = "white";
+            
+            currentLetterBox.classList.add("fail");
+            currentKey.classList.add("fail");
+          
           }
         }
       }
     }
-
     else{
-
+  
       if(letterCount >= 5){
         return; 
       }
-
+  
       masterGuessList.push(e.target.textContent);
       letterboxArray[masterGuessList.length - 1].textContent = e.target.textContent.toUpperCase();
-      letterboxArray[masterGuessList.length - 1].style.border = "2px solid #777";
-      letterCount += 1; 
-
+      letterboxArray[masterGuessList.length - 1].classList.add("filled-letterbox");
+      letterCount += 1;
+      
     }
-
+  
   })
-
+  
 }
+  
+  
+
+//for keyboard clicks (original)
+
+// for(let i = 0; i < keyNodeList.length; i++){
+
+//   keyNodeList[i].addEventListener("click", (e) => {
+
+//     if(e.target.textContent === "BACK"){
+
+//       if(letterCount > 0){
+//         letterCount -= 1; 
+//       }
+
+//       if(masterGuessList.length === offLimitsCount){
+//         return; 
+//       }
+
+//       masterGuessList.pop();
+//       letterboxArray[masterGuessList.length].textContent = "";
+//       letterboxArray[masterGuessList.length].style.border = "2px solid rgb(192, 189, 189)";
+
+//     }
+
+//     else if(e.target.textContent === "ENTER"){ 
+
+//       if(masterGuessList.length%5 === 0 & masterGuessList.length > 0){
+//         letterCount = 0; 
+//         offLimitsCount = masterGuessList.length;
+//       }
+
+
+
+//       if((masterGuessList.length)%5 !== 0 || masterGuessList.length === 0){
+
+//         alert("Not enough letters");
+//         return;
+
+//       }
+//       else{
+
+//         testWordArray = [];
+//         for(let i = masterGuessList.length - 5; i < masterGuessList.length; i++){
+
+//           testWordArray.push(masterGuessList[i].toUpperCase());
+
+//         }
+
+//         for(let i = 0; i < testWordArray.length; i++){
+
+//           if(currentWordArray.includes(testWordArray[i])){
+
+//             if(currentWordArray[i] === testWordArray[i]){
+//               let currentLetterBox = document.getElementById(`letterbox-${i + (((masterGuessList.length)/5) - 1)*5}`);
+//               currentLetterBox.style.backgroundColor = "#6aaa64"; //green
+//               currentLetterBox.style.color = "white";
+//               currentLetterBox.style.border = "none";
+
+//               let currentKey = document.getElementById(`${testWordArray[i]}`);
+//               currentKey.style.backgroundColor = "#6aaa64";
+
+//               currentKey.style.color = "white";
+//             }
+//             else{
+
+//               let currentLetterBox = document.getElementById(`letterbox-${i + (((masterGuessList.length)/5) - 1)*5}`);
+//               currentLetterBox.style.backgroundColor = "#c9b458"; //yellow
+//               currentLetterBox.style.color = "white";
+//               currentLetterBox.style.border = "none";
+
+//               let currentKey = document.getElementById(`${testWordArray[i]}`);
+//               currentKey.style.backgroundColor = "#c9b458";
+
+//               currentKey.style.color = "white";
+//             }
+
+//           }
+//           else{
+
+//             let currentLetterBox = document.getElementById(`letterbox-${i + (((masterGuessList.length)/5) - 1)*5}`);
+//             currentLetterBox.style.backgroundColor = "#787c7e"; //gray
+//             currentLetterBox.style.color = "white";
+//             currentLetterBox.style.border = "none";
+
+//             let currentKey = document.getElementById(`${testWordArray[i]}`);
+//             currentKey.style.backgroundColor = "#787c7e";
+//             currentKey.style.color = "white";
+//           }
+//         }
+//       }
+//     }
+
+//     else{
+
+//       if(letterCount >= 5){
+//         return; 
+//       }
+
+//       masterGuessList.push(e.target.textContent);
+//       letterboxArray[masterGuessList.length - 1].textContent = e.target.textContent.toUpperCase();
+//       letterboxArray[masterGuessList.length - 1].style.border = "2px solid #777";
+//       letterCount += 1; 
+
+//     }
+
+//   })
+
+// }
 
 
 

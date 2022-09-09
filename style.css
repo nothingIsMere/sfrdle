@@ -107,19 +107,63 @@ header h1 {
 .success {
   background-color: #6aaa64;
   color: #fff;
-  border: none;
+  border: 2px solid #6aaa64;
 }
 
 .near-success {
   background-color: #c9b458;
   color: #fff;
-  border: none;
+  border: 2px solid #c9b458;
 }
 
 .fail {
   background-color: #787c7e;
   color: #fff;
-  border: none;
+  border: 2px solid #787c7e;
+}
+
+#modal-warning {
+  display: none; /* Hidden by default */
+  position: fixed; /* Stay in place */
+  z-index: 0; /* Sit on top */
+  width: 150px; 
+  height: 4%; 
+  align-items: center;
+  justify-content: center;
+  border-radius: 4%;
+  color: white;
+  background-color: #000;
+  margin-top: 100px;
+}
+
+#modal-game-over {
+  display: flex;
+  flex-direction: column;
+  position: fixed; /* Stay in place */
+  z-index: 1; /* Sit on top */
+  width: 35%; 
+  height: 75%; 
+  align-items: center;
+  justify-content: center;
+  color:#000;
+  background-color: #fff;
+  border: 1px solid #000;
+  margin-top: 75px;
+  border-radius: 2%;
+
+}
+
+.warning-text {
+  padding: 15px;
+  padding-left: 10px;
+  padding-right: 10px;
+  font-family: "Clear Sans", "Helvetica Neue", Arial, sans-serif;
+  font-weight: bold;
+  font-size: small;
+}
+
+.filled-letterbox {
+  border: "2px solid #777";
 }
 
 
