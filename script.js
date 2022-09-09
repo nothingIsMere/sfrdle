@@ -108,7 +108,8 @@ window.addEventListener("keydown", (e) => {
           
           if(currentWordArray[i] === testWordArray[i]){
             
-            currentLetterBox.classList.remove("near-success"); 
+            currentLetterBox.classList.remove("near-success");
+            currentLetterBox.classList.remove("filled-letterbox"); 
             currentLetterBox.classList.add("success");
             currentKey.classList.remove("near-success"); 
             currentKey.classList.add("success");
@@ -117,9 +118,11 @@ window.addEventListener("keydown", (e) => {
           }
           else{
             
+            currentLetterBox.classList.remove("filled-letterbox"); 
             currentLetterBox.classList.add("near-success");
 
             if(!currentKey.classList.contains("success")){
+              currentLetterBox.classList.remove("filled-letterbox"); 
               currentKey.classList.add("near-success");
             }
           }
