@@ -162,7 +162,14 @@ header h1 {
 }
 
 .filled-letterbox {
-  border: "2px solid #777";
+  flex: 1;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 95%;
+  border: 2px solid #777;
+  font-size: 250%;
+  font-weight:bolder;
 }
 
 #close {
