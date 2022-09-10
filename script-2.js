@@ -1,5 +1,5 @@
-let currentWord = "HOOPS";
-let currentWordCopy = "HOOPS"
+let currentWord = "ABBEY";
+let currentWordCopy = "ABBEY"
 let wordList = [
   "SCORE",
   "DRAFT",
@@ -113,7 +113,8 @@ window.addEventListener("keydown", (e) => {
         if(currentWordCopyArray[i] === testWordArray[i]){
           currentLetterBox.classList.add("success");
           currentLetterBox.classList.remove("filled-letterbox");
-          currentWordCopyArray[i] = "*"; 
+          currentWordCopyArray[i] = "*";
+          successCount += 1; 
         }
       }
 
@@ -173,6 +174,7 @@ window.addEventListener("keydown", (e) => {
   }
 
   if(successCount === 5){
+    letterCount = 5;
     setTimeout(() => {
       modalGameOver.style.display = "flex";
     }, 1050);
