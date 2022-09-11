@@ -1,5 +1,3 @@
-let currentWord = "ABBEY";
-let currentWordCopy = "ABBEY"
 let wordList = [
   "SCORE",
   "DRAFT",
@@ -25,8 +23,13 @@ let wordList = [
   "KINGS",
   "HAWKS",
   "SPURS",
+  "TATUM",
+  "AYTON",
+  "CLASS"
 
   ];
+const currentWord = wordList[Math.floor(Math.random() * (wordList.length))];
+let currentWordCopy = currentWord;
 let currentWordArray = Array.from(currentWord);
 let currentWordCopyArray = Array.from(currentWord); 
 let  masterGuessList = [];
