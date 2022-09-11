@@ -37,9 +37,11 @@ let failLetters = [];
 let offLimitsCount = 0;
 let letterCount = 0;
 let successCount = 0;
+let gameOver;
 const modalWarning = document.getElementById("modal-warning"); 
 const modalGameOver = document.getElementById("modal-game-over");
 const closeBtn = document.getElementById("close");
+const gameOverText = document.getElementById("text-container");
 
 closeBtn.onclick = function() {
   modalGameOver.style.display = "none";
@@ -74,11 +76,15 @@ window.addEventListener("keydown", (e) => {
     
     masterGuessList.pop();
     letterboxArray[masterGuessList.length].textContent = "";
-    letterboxArray[masterGuessList.length].style.border = "2px solid rgb(192, 189, 189)";
+    letterboxArray[masterGuessList.length].classList.remove("filled-letterbox");
   
   }
   
   else if(e.key === "Enter"){
+
+    if(gameOver === true){
+      return;
+    }
   
     if(masterGuessList.length%5 === 0 & masterGuessList.length > 0){
       currentWordCopyArray = currentWordArray.slice(0); 
@@ -109,52 +115,62 @@ window.addEventListener("keydown", (e) => {
       for(let i = 0; i < testWordArray.length; i++){
 
         let currentLetterBox = document.getElementById(`letterbox-${i + (((masterGuessList.length)/5) - 1)*5}`);
+        let currentKey = document.getElementById(`${testWordArray[i]}`);
 
         if(currentWordCopyArray[i] === testWordArray[i]){
-          currentLetterBox.classList.add("success");
           currentLetterBox.classList.remove("filled-letterbox");
+          currentLetterBox.classList.add("success");
           currentWordCopyArray[i] = "*";
           successCount += 1; 
+
+          currentKey.classList.remove("near-success");
+          currentKey.classList.add("success");
         }
       }
 
       for(let i = 0; i < testWordArray.length; i++){
         
         let currentLetterBox = document.getElementById(`letterbox-${i + (((masterGuessList.length)/5) - 1)*5}`);
+        let currentKey = document.getElementById(`${testWordArray[i]}`);
         
         if(!currentLetterBox.classList.contains("success")){
+          
           if(currentWordCopyArray.includes(testWordArray[i])){
+            
             for(let j = 0; j < testWordArray.length; j++){
+              
               if(currentWordCopyArray[j] === testWordArray[i]){
                 currentWordCopyArray[j] = "*";
               }
+            
             }
-            currentLetterBox.classList.add("near-success");
+            
             currentLetterBox.classList.remove("filled-letterbox");
+            currentLetterBox.classList.add("near-success");
+            
+            if(!currentKey.classList.contains("success")){
+              currentKey.classList.add("near-success");
+            }
           
           }
           else{
             
-            currentLetterBox.classList.add("fail");
             currentLetterBox.classList.remove("filled-letterbox");
-          
+            currentLetterBox.classList.add("fail");
+
+            if(!currentKey.classList.contains("success") & !currentKey.classList.contains("near-success")){
+              currentKey.classList.add("fail");
+            }
           }
         }
 
       }
-
-
     
-
-      //update keys
-      
-
-      
     }
 
-    if(masterGuessList.length === 30){
+    if(masterGuessList.length === 30 & successCount != 5){
       const loseText = document.getElementById("game-over-text");
-      loseText.textContent = "You lose"; 
+      loseText.textContent = "You lose!"; 
       setTimeout(() => {
         modalGameOver.style.display = "flex";
       }, 500);
@@ -175,9 +191,15 @@ window.addEventListener("keydown", (e) => {
 
   if(successCount === 5){
     letterCount = 5;
+    let guessCount = document.createTextNode(`${masterGuessList.length/5}/6`);
+    let guessCountPara = document.createElement("p");
+    guessCountPara.appendChild(guessCount);
+    gameOverText.innerHTML += "<br>"; 
+    gameOverText.appendChild(guessCountPara);
     setTimeout(() => {
       modalGameOver.style.display = "flex";
     }, 1050);
+    gameOver = true; 
   }
 
 })
