@@ -49,7 +49,6 @@ let offLimitsCount = 0;
 let letterCount = 0;
 let successCount = 0;
 let gameOver; 
-let invalidWord = false;
 const modalWarning = document.getElementById("modal-warning"); 
 const modalGameOver = document.getElementById("modal-game-over");
 const closeBtn = document.getElementById("close");
@@ -58,6 +57,8 @@ const gameOverText = document.getElementById("text-container");
 closeBtn.onclick = function() {
   modalGameOver.style.display = "none";
 }
+
+let isWord = true;
 
 for(let i = 0; i < letterboxNodeList.length; i++){
   
@@ -94,7 +95,34 @@ window.addEventListener("keydown", (e) => {
   
   else if(e.key === "Enter"){
 
-    if(invalidWord === false){
+    testWordString = "";
+    
+    for(let i = masterGuessList.length - 5; i < masterGuessList.length; i++){
+      
+      testWordString += masterGuessList[i]; 
+      
+    }
+
+    const data = null;
+
+    const xhr = new XMLHttpRequest();
+    xhr.withCredentials = true;
+
+    xhr.addEventListener("readystatechange", function () {
+      if (this.readyState === this.DONE) {
+        if(this.status === 404){
+          isWord = false; 
+        }
+      }
+    });
+
+    xhr.open("GET", `https://wordsapiv1.p.rapidapi.com/words/${testWordString}`, false);
+    xhr.setRequestHeader("X-RapidAPI-Key", "bd5ed6e78emshe67a950d2b6efecp1f1255jsn7ab94a230ac9");
+    xhr.setRequestHeader("X-RapidAPI-Host", "wordsapiv1.p.rapidapi.com");
+
+    xhr.send(data);
+
+    if(isWord){
       
       if(gameOver === true){
         return;
