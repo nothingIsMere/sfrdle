@@ -25,7 +25,8 @@ let wordList = [
   "SPURS",
   "TATUM",
   "AYTON",
-  "CLASS"
+  "CLASS",
+  "RUBIO",
 
   ];
 const currentWord = wordList[Math.floor(Math.random() * (wordList.length))];
@@ -47,7 +48,8 @@ let failLetters = [];
 let offLimitsCount = 0;
 let letterCount = 0;
 let successCount = 0;
-let gameOver;
+let gameOver; 
+let invalidWord = false;
 const modalWarning = document.getElementById("modal-warning"); 
 const modalGameOver = document.getElementById("modal-game-over");
 const closeBtn = document.getElementById("close");
@@ -92,100 +94,113 @@ window.addEventListener("keydown", (e) => {
   
   else if(e.key === "Enter"){
 
-    if(gameOver === true){
-      return;
-    }
-  
-    if(masterGuessList.length%5 === 0 & masterGuessList.length > 0){
-      currentWordCopyArray = currentWordArray.slice(0); 
-      letterCount = 0;
-      offLimitsCount = masterGuessList.length; 
-      successCount = 0;
-    }
+    if(invalidWord === false){
       
-    if((masterGuessList.length)%5 !== 0 || masterGuessList.length === 0){
-      
-      modalWarning.style.display = "flex";
-
-      setTimeout(() => {
-        modalWarning.style.display = "none";
-      }, 1050); 
-      return;
+      if(gameOver === true){
+        return;
+      }
     
-    }
-    else{
-      
-      testWordArray = [];
-      for(let i = masterGuessList.length - 5; i < masterGuessList.length; i++){
+      if(masterGuessList.length%5 === 0 & masterGuessList.length > 0){
+        currentWordCopyArray = currentWordArray.slice(0); 
+        letterCount = 0;
+        offLimitsCount = masterGuessList.length; 
+        successCount = 0;
+      }
         
-        testWordArray.push(masterGuessList[i].toUpperCase());
+      if((masterGuessList.length)%5 !== 0 || masterGuessList.length === 0){
+        
+        modalWarning.style.display = "flex";
+  
+        setTimeout(() => {
+          modalWarning.style.display = "none";
+        }, 1200); 
+        return;
       
       }
-      
-      for(let i = 0; i < testWordArray.length; i++){
-
-        let currentLetterBox = document.getElementById(`letterbox-${i + (((masterGuessList.length)/5) - 1)*5}`);
-        let currentKey = document.getElementById(`${testWordArray[i]}`);
-
-        if(currentWordCopyArray[i] === testWordArray[i]){
-          currentLetterBox.classList.remove("filled-letterbox");
-          currentLetterBox.classList.add("success");
-          currentWordCopyArray[i] = "*";
-          successCount += 1; 
-
-          currentKey.classList.remove("near-success");
-          currentKey.classList.add("success");
-        }
-      }
-
-      for(let i = 0; i < testWordArray.length; i++){
+      else{
         
-        let currentLetterBox = document.getElementById(`letterbox-${i + (((masterGuessList.length)/5) - 1)*5}`);
-        let currentKey = document.getElementById(`${testWordArray[i]}`);
-        
-        if(!currentLetterBox.classList.contains("success")){
+        testWordArray = [];
+        for(let i = masterGuessList.length - 5; i < masterGuessList.length; i++){
           
-          if(currentWordCopyArray.includes(testWordArray[i])){
+          testWordArray.push(masterGuessList[i].toUpperCase());
+        
+        }
+        
+        for(let i = 0; i < testWordArray.length; i++){
+  
+          let currentLetterBox = document.getElementById(`letterbox-${i + (((masterGuessList.length)/5) - 1)*5}`);
+          let currentKey = document.getElementById(`${testWordArray[i]}`);
+  
+          if(currentWordCopyArray[i] === testWordArray[i]){
+            currentLetterBox.classList.remove("filled-letterbox");
+            currentLetterBox.classList.add("success");
+            currentWordCopyArray[i] = "*";
+            successCount += 1; 
+  
+            currentKey.classList.remove("near-success");
+            currentKey.classList.add("success");
+          }
+        }
+  
+        for(let i = 0; i < testWordArray.length; i++){
+          
+          let currentLetterBox = document.getElementById(`letterbox-${i + (((masterGuessList.length)/5) - 1)*5}`);
+          let currentKey = document.getElementById(`${testWordArray[i]}`);
+          
+          if(!currentLetterBox.classList.contains("success")){
             
-            for(let j = 0; j < testWordArray.length; j++){
+            if(currentWordCopyArray.includes(testWordArray[i])){
               
-              if(currentWordCopyArray[j] === testWordArray[i]){
-                currentWordCopyArray[j] = "*";
+              for(let j = 0; j < testWordArray.length; j++){
+                
+                if(currentWordCopyArray[j] === testWordArray[i]){
+                  currentWordCopyArray[j] = "*";
+                }
+              
+              }
+              
+              currentLetterBox.classList.remove("filled-letterbox");
+              currentLetterBox.classList.add("near-success");
+              
+              if(!currentKey.classList.contains("success")){
+                currentKey.classList.add("near-success");
               }
             
             }
-            
-            currentLetterBox.classList.remove("filled-letterbox");
-            currentLetterBox.classList.add("near-success");
-            
-            if(!currentKey.classList.contains("success")){
-              currentKey.classList.add("near-success");
-            }
-          
-          }
-          else{
-            
-            currentLetterBox.classList.remove("filled-letterbox");
-            currentLetterBox.classList.add("fail");
-
-            if(!currentKey.classList.contains("success") & !currentKey.classList.contains("near-success")){
-              currentKey.classList.add("fail");
+            else{
+              
+              currentLetterBox.classList.remove("filled-letterbox");
+              currentLetterBox.classList.add("fail");
+  
+              if(!currentKey.classList.contains("success") & !currentKey.classList.contains("near-success")){
+                currentKey.classList.add("fail");
+              }
             }
           }
+  
         }
-
+      
       }
-    
+  
+      if(masterGuessList.length === 30 & successCount != 5){
+        let loserDisplay = document.getElementById("warning-text");
+        loserDisplay.textContent = `${currentWord.toUpperCase()}`;
+        modalWarning.style.display = "flex";
+        setTimeout(() => {
+          modalWarning.style.display = "none";
+        }, 1200);
+      }
     }
-
-    if(masterGuessList.length === 30 & successCount != 5){
-      const loseText = document.getElementById("game-over-text");
-      loseText.textContent = "You lose!"; 
+    else{
+      let invalidWordDisplay = document.getElementById("warning-text");
+      invalidWordDisplay.textContent = `Not in word list`;
+      modalWarning.style.display = "flex";
       setTimeout(() => {
-        modalGameOver.style.display = "flex";
-      }, 500);
+        modalWarning.style.display = "none";
+      }, 1200); 
     }
   }
+
   else{
 
     if(letterCount >= 5){
@@ -332,11 +347,12 @@ for(let i = 0; i < keyNodeList.length; i++){
       }
   
       if(masterGuessList.length === 30 & successCount != 5){
-        const loseText = document.getElementById("game-over-text");
-        loseText.textContent = "You lose!"; 
+        let loserDisplay = document.getElementById("warning-text");
+        loserDisplay.textContent = `${currentWord.toUpperCase()}`;
+        modalWarning.style.display = "flex";
         setTimeout(() => {
-          modalGameOver.style.display = "flex";
-        }, 500);
+          modalWarning.style.display = "none";
+        }, 1200);
       }
     }
     else{
