@@ -27,7 +27,8 @@ let wordList = [
   "AYTON",
   "CLASS",
   "RUBIO",
-
+  "SCORE",
+  "GAMES",
   ];
 const currentWord = wordList[Math.floor(Math.random() * (wordList.length))];
 let currentWordCopy = currentWord;
@@ -241,7 +242,6 @@ window.addEventListener("keydown", (e) => {
     letterboxArray[masterGuessList.length - 1].classList.add("filled-letterbox");
     letterCount += 1;
     testWordString += e.key; 
-    console.log(`testWordString is ${testWordString}`);
     
   }
 
