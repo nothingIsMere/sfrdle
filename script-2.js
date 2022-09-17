@@ -1,4 +1,3 @@
-const currentWord = "score";
 let wordList = [
     "score",
     "draft",
@@ -44,6 +43,7 @@ const acceptableKeys = ["A", "B", "C", "D", "E", "F", "G",
 "a","b","c","d","e","f","g","h","i","j","k","l","m","n","o","p","q","r","s",
 "t","u","v","w","x","y","z","Enter", "Backspace", "ENTER", "BACK"];
 
+const currentWord = wordList[Math.floor(Math.random() * (wordList.length))];
 let currentWordCopy = currentWord;
 let currentWordArray = Array.from(currentWord);
 let currentWordCopyArray = Array.from(currentWord); 
@@ -81,12 +81,14 @@ for(let i = 0; i < letterboxNodeList.length; i++){ //assigning ids to letterboxe
 
 
 
-  window.addEventListener("keydown", (e) => {
+window.addEventListener("keydown", (e) => {
 
-    if(!acceptableKeys.includes(e.key)){
+    if(!acceptableKeys.includes(e.key)){    //INVALID KEY 
         return;
     }
-    else if(e.key === "Enter"){             //ENTER
+    else if(e.key === "Enter"){            //ENTER
+
+        //start API request for word validation
         const data = null;
 
         const xhr = new XMLHttpRequest();
@@ -104,7 +106,8 @@ for(let i = 0; i < letterboxNodeList.length; i++){ //assigning ids to letterboxe
         xhr.setRequestHeader("X-RapidAPI-Key", "bd5ed6e78emshe67a950d2b6efecp1f1255jsn7ab94a230ac9");
         xhr.setRequestHeader("X-RapidAPI-Host", "wordsapiv1.p.rapidapi.com");
 
-        xhr.send(data);  
+        xhr.send(data);
+        //end API request   
             
         if(testWordString.length < 5){
             warningText.textContent = `Not enough letters`;
@@ -126,9 +129,24 @@ for(let i = 0; i < letterboxNodeList.length; i++){ //assigning ids to letterboxe
             if(gameOver === true){
                 return;
             }
+
+            if(masterGuessList.length%5 === 0 & masterGuessList.length > 0){
+                currentWordCopyArray = currentWordArray.slice(0); 
+                letterCount = 0;
+                offLimitsCount = masterGuessList.length; 
+                successCount = 0;
+                }
+
+            testWordString = "";
         }
+
     }
     else if(e.key === "Backspace"){              //BACKSPACE
+
+        if(masterGuessList.length === offLimitsCount){
+            return; 
+            }
+        
         testWordString = testWordString.slice(0,testWordString.length - 1);
         console.log(testWordString);
         if(letterCount > 0){
@@ -139,14 +157,14 @@ for(let i = 0; i < letterboxNodeList.length; i++){ //assigning ids to letterboxe
         letterboxArray[masterGuessList.length].textContent = "";
         letterboxArray[masterGuessList.length].classList.remove("filled-letterbox");
     }
-    else{
+    else{                                         //VALID LETTER
 
         if(letterCount >= 5){
             return;
         }
         
         testWordString += e.key;
-        console.log(testWordString);            //VALID LETTER
+        console.log(testWordString);            
         letterCount += 1;
 
         masterGuessList.push(e.key);
