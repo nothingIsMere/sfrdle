@@ -141,7 +141,9 @@ window.addEventListener("keydown", (e) => {
         }
 
     }
-    else if(e.key === "Backspace"){              //BACKSPACE
+    else if(e.key === "Backspace"){                    //BACKSPACE
+
+        isWord = true;
 
         if(masterGuessList.length === offLimitsCount){
             return; 
