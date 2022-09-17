@@ -27,6 +27,9 @@ let wordList = [
   "COURT",
   "THREE",
   "SHOTS",
+  "SWISH",
+  "GUARD",
+  "SHOOT",
   ];
 let supplementalWordList = [
   "KAWHI",
@@ -105,7 +108,6 @@ window.addEventListener("keydown", (e) => {
     letterboxArray[masterGuessList.length].classList.remove("filled-letterbox");
 
     testWordString = testWordString.slice(0,testWordString.length - 1);
-    console.log(testWordString);
 
   }
   
@@ -251,7 +253,6 @@ window.addEventListener("keydown", (e) => {
     letterboxArray[masterGuessList.length - 1].classList.add("filled-letterbox");
     letterCount += 1;
     testWordString += e.key; 
-    console.log(testWordString);
     
   }
 
