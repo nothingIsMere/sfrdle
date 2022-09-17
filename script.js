@@ -4,7 +4,6 @@ let wordList = [
   "TRADE",
   "CHEAT",
   "HOOPS",
-  "KAWHI",
   "KEVIN",
   "BRIAN",
   "CHAMP",
@@ -12,7 +11,6 @@ let wordList = [
   "POINT",
   "STEAL",
   "BLOCK",
-  "JOKIC",
   "BULLS",
   "MAGIC",
   "SQUAD",
@@ -23,13 +21,21 @@ let wordList = [
   "KINGS",
   "HAWKS",
   "SPURS",
-  "TATUM",
-  "AYTON",
   "CLASS",
-  "RUBIO",
   "SCORE",
   "GAMES",
+  "COURT",
+  "THREE",
+  "SHOTS",
   ];
+let supplementalWordList = [
+  "KAWHI",
+  "RUBIO",
+  "AYTON",
+  "TATUM",
+  "JOKIC",
+];
+
 const currentWord = wordList[Math.floor(Math.random() * (wordList.length))];
 let currentWordCopy = currentWord;
 let currentWordArray = Array.from(currentWord);
@@ -68,6 +74,9 @@ for(let i = 0; i < letterboxNodeList.length; i++){
 
 }
 
+// console.log(supplementalWordList);
+// console.log(supplementalWordList.includes("KAWHI"));
+
 //for window keydowns*********************************************************************************************************
 
 window.addEventListener("keydown", (e) => {
@@ -79,6 +88,8 @@ window.addEventListener("keydown", (e) => {
   }
   
   else if(e.key === "Backspace"){
+
+    isWord = true; 
 
     if(letterCount > 0){
       letterCount -= 1; 
@@ -94,13 +105,11 @@ window.addEventListener("keydown", (e) => {
     letterboxArray[masterGuessList.length].classList.remove("filled-letterbox");
 
     testWordString = testWordString.slice(0,testWordString.length - 1);
+    console.log(testWordString);
 
-    console.log(testWordString); 
-  
   }
   
   else if(e.key === "Enter"){
-    
 
     const data = null;
 
@@ -109,7 +118,7 @@ window.addEventListener("keydown", (e) => {
 
     xhr.addEventListener("readystatechange", function () {
       if (this.readyState === this.DONE) {
-        if(this.status === 404){
+        if(this.status === 404 && !supplementalWordList.includes(testWordString.toUpperCase())){
           isWord = false; 
         }
       }
@@ -224,11 +233,11 @@ window.addEventListener("keydown", (e) => {
       modalWarning.style.display = "flex";
       setTimeout(() => {
         modalWarning.style.display = "none";
-      }, 1200);
-      isWord = true; 
+      }, 1200); 
     }
 
     testWordString = "";
+
   }
 
   else{
@@ -242,6 +251,7 @@ window.addEventListener("keydown", (e) => {
     letterboxArray[masterGuessList.length - 1].classList.add("filled-letterbox");
     letterCount += 1;
     testWordString += e.key; 
+    console.log(testWordString);
     
   }
 
