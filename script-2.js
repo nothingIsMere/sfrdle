@@ -62,6 +62,7 @@ let successCount = 0;
 let gameOver;
 let testWordString = ""; 
 let isWord = true;
+let guessCount = 0; 
 
 const modalWarning = document.getElementById("modal-warning"); 
 const modalGameOver = document.getElementById("modal-game-over");
@@ -109,13 +110,13 @@ window.addEventListener("keydown", (e) => {
         xhr.send(data);
         //end API request   
             
-        if(testWordString.length < 5){
+        if(masterGuessList.length%5 != 0 || parseInt(masterGuessList.length/5) === guessCount){
             warningText.textContent = `Not enough letters`;
             modalWarning.style.display = "flex";
             setTimeout(() => {
             modalWarning.style.display = "none";
             }, 1200); 
-            return; 
+            return;
         }
         else if(isWord === false){
             warningText.textContent = `Not in word list`;
@@ -125,7 +126,8 @@ window.addEventListener("keydown", (e) => {
             }, 1200); 
         }
         else{
-            //Update boxes and keys as needed
+            //Update boxes and keys as needed 
+
             if(gameOver === true){
                 return;
             }
@@ -135,7 +137,10 @@ window.addEventListener("keydown", (e) => {
                 letterCount = 0;
                 offLimitsCount = masterGuessList.length; 
                 successCount = 0;
-                }
+                guessCount = masterGuessList.length/5;
+                console.log(`guessCount = ${guessCount}`);
+                console.log(`parseInt(masterGuessList.length/5) = ${parseInt(masterGuessList.length/5)}`); 
+            }
 
             testWordString = "";
         }
