@@ -1,3 +1,4 @@
+let currentWord = "SCORE";
 let wordList = [
   "SCORE",
   "DRAFT",
@@ -39,7 +40,7 @@ let supplementalWordList = [
   "JOKIC",
 ];
 
-const currentWord = wordList[Math.floor(Math.random() * (wordList.length))];
+// const currentWord = wordList[Math.floor(Math.random() * (wordList.length))];
 let currentWordCopy = currentWord;
 let currentWordArray = Array.from(currentWord);
 let currentWordCopyArray = Array.from(currentWord); 
@@ -77,9 +78,6 @@ for(let i = 0; i < letterboxNodeList.length; i++){
 
 }
 
-// console.log(supplementalWordList);
-// console.log(supplementalWordList.includes("KAWHI"));
-
 //for window keydowns*********************************************************************************************************
 
 window.addEventListener("keydown", (e) => {
@@ -108,10 +106,21 @@ window.addEventListener("keydown", (e) => {
     letterboxArray[masterGuessList.length].classList.remove("filled-letterbox");
 
     testWordString = testWordString.slice(0,testWordString.length - 1);
+    console.log(testWordString); 
 
   }
   
   else if(e.key === "Enter"){
+
+    if(testWordString.length < 5){
+      
+      modalWarning.style.display = "flex";
+  
+        setTimeout(() => {
+          modalWarning.style.display = "none";
+        }, 1200); 
+        return;  
+    }
 
     const data = null;
 
@@ -148,7 +157,8 @@ window.addEventListener("keydown", (e) => {
       if((masterGuessList.length)%5 !== 0 || masterGuessList.length === 0){
         
         modalWarning.style.display = "flex";
-  
+        let notEnoughLettersText = document.getElementById("warning-text");
+        notEnoughLettersText.textContent = `Not enough letters`;
         setTimeout(() => {
           modalWarning.style.display = "none";
         }, 1200); 
