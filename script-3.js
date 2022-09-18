@@ -23,20 +23,27 @@ window.addEventListener("keydown", (e) => {
 
   }
   else if(e.key === "Enter"){              //ENTER
-    let currentSubmission = "";
     if(gameOver){return;}
-    if(masterLetterList.length%5 === 0){
-      for(let i = masterLetterList.length - 5; i < masterLetterList.length; i++){
-        currentSubmission += masterLetterList[i];
-      }
-    }
-    else{
+    //start building currentSubmission
+    let currentSubmission = "";
+    
+    if(masterLetterList.length%5 != 0){
       for(let i = masterLetterList.length - masterLetterList.length%5;i<masterLetterList.length;i++){
         currentSubmission += masterLetterList[i];
       }
     }
-  
+    else{
+      for(let i = masterLetterList.length - 5; i<masterLetterList.length;i++){
+        currentSubmission += masterLetterList[i];
+      }
+    }
+    
     console.log(currentSubmission);
+    //end building currentSubmission
+
+    if(currentSubmission.length < 5){
+      console.log("Not enough letters");
+    }
      
   }
   else{                                   //VALID LETTER
