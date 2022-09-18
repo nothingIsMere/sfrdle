@@ -1,4 +1,7 @@
 let currentWord = "score";
+let currentWordArray = currentWord.split("");
+let currentWordCopy = currentWord;
+let currentWordCopyArray = Array.from(currentWord); 
 let masterLetterArray = []; 
 let gameOver = false;
 let currentSubmission = "";
@@ -18,10 +21,11 @@ let supplementalWordList = [];
 
 window.addEventListener("keydown", (e) => {
 
-  if(!acceptableKeys.includes(e.key)){              //INVALID KEY
+  if(!acceptableKeys.includes(e.key)){                                                   //INVALID KEY
     return; 
   }
-  else if(e.key === "Backspace"){                   //BACKSPACE
+  else if(e.key === "Backspace"){ 
+    isWord = true;                                                       //BACKSPACE
     if(gameOver){
       return;
     }
@@ -36,7 +40,7 @@ window.addEventListener("keydown", (e) => {
     letterboxArray[masterLetterArray.length].classList.remove("filled-letterbox");
     console.log(`masterLetterArray.length = ${masterLetterArray.length}`);
   }
-  else if(e.key === "Enter"){                         //ENTER
+  else if(e.key === "Enter"){                                                             //ENTER
     if(gameOver){
       return;
     }
@@ -45,8 +49,9 @@ window.addEventListener("keydown", (e) => {
       currentSubmission = "";
       for(let i=masterLetterArray.length - masterLetterArray.length%5; i < masterLetterArray.length; i++){
         currentSubmission += masterLetterArray[i];
+        currentSubmissionArray = currentSubmission.split("");
       }
-      //begin API request
+      //BEGIN API REQUEST
       const data = null;
       const xhr = new XMLHttpRequest();
       xhr.withCredentials = true;
@@ -61,15 +66,17 @@ window.addEventListener("keydown", (e) => {
       xhr.setRequestHeader("X-RapidAPI-Key", "bd5ed6e78emshe67a950d2b6efecp1f1255jsn7ab94a230ac9");
       xhr.setRequestHeader("X-RapidAPI-Host", "wordsapiv1.p.rapidapi.com");
       xhr.send(data);
-      //End API request
+      //END API REQUEST
       console.log(currentSubmission);
+      console.log(currentSubmissionArray);
     }
     else if(masterLetterArray.length%5 === 0){
       currentSubmission = "";
       for(let i=masterLetterArray.length - 5; i < masterLetterArray.length; i++){
         currentSubmission += masterLetterArray[i];
+        currentSubmissionArray = currentSubmission.split("");
       }
-      //begin API request
+      //BEGIN API REQUEST
       const data = null;
       const xhr = new XMLHttpRequest();
       xhr.withCredentials = true;
@@ -84,27 +91,45 @@ window.addEventListener("keydown", (e) => {
       xhr.setRequestHeader("X-RapidAPI-Key", "bd5ed6e78emshe67a950d2b6efecp1f1255jsn7ab94a230ac9");
       xhr.setRequestHeader("X-RapidAPI-Host", "wordsapiv1.p.rapidapi.com");
       xhr.send(data);
-      //end API request
+      //END API REQUEST
       console.log(currentSubmission);
+      console.log(currentSubmissionArray);
     }
 
-    if(currentSubmission.length < 5 || masterLetterArray.length/5 == submissionCount){
+    if(currentSubmission.length < 5 || masterLetterArray.length/5 == submissionCount){   //ENTER>NOT ENOUGH LETTERS
       alert("Not enough letters");
     }
-    else if(isWord === false){
+    else if(isWord === false){                                                          //ENTER>INVALID WORD
       alert("Not in word list");
     }
     else{
       offLimitsCount = masterLetterArray.length;
       submissionCount += 1;
-      letterCount = 0;  
+      letterCount = 0;
+      
+      //UPDATE BOXES
+      // for(let i = 0; i < currentSubmissionArray.length; i++){
+  
+      //   let currentLetterBox = document.getElementById(`letterbox-${i + (((masterLetterArray.length)/5) - 1)*5}`);
+      //   let currentKey = document.getElementById(`${currentSubmissionArray[i]}`);
+
+      //   if(currentWordCopyArray[i] === testWordArray[i]){
+      //     currentLetterBox.classList.remove("filled-letterbox");
+      //     currentLetterBox.classList.add("success");
+      //     currentWordCopyArray[i] = "*";
+      //     successCount += 1; 
+
+      //     currentKey.classList.remove("near-success");
+      //     currentKey.classList.add("success");
+      //   }
+      // } 
     }
 
     console.log(`offLimitsCount = ${offLimitsCount}`);
     console.log(`currentSubmission = ${currentSubmission}`);
     console.log(`submissionCount = ${submissionCount}`);
   }
-  else{                                          //VALID LETTER
+  else{                                                                                    //VALID LETTER
     if(gameOver){
       return;
     }
