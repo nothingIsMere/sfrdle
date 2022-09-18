@@ -108,21 +108,20 @@ window.addEventListener("keydown", (e) => {
       letterCount = 0;
       
       //UPDATE BOXES
-      // for(let i = 0; i < currentSubmissionArray.length; i++){
+      for(let i = 0; i < currentSubmissionArray.length; i++){
   
-      //   let currentLetterBox = document.getElementById(`letterbox-${i + (((masterLetterArray.length)/5) - 1)*5}`);
-      //   let currentKey = document.getElementById(`${currentSubmissionArray[i]}`);
+        let currentLetterBox = document.getElementById(`letterbox-${i + (((masterLetterArray.length)/5) - 1)*5}`);
+        let currentKey = document.getElementById(`${currentSubmissionArray[i]}`);
 
-      //   if(currentWordCopyArray[i] === testWordArray[i]){
-      //     currentLetterBox.classList.remove("filled-letterbox");
-      //     currentLetterBox.classList.add("success");
-      //     currentWordCopyArray[i] = "*";
-      //     successCount += 1; 
+        if(currentWordCopyArray[i] === currentSubmissionArray[i]){
+          currentLetterBox.classList.remove("filled-letterbox");
+          currentLetterBox.classList.add("success");
+          currentWordCopyArray[i] = "*";
 
-      //     currentKey.classList.remove("near-success");
-      //     currentKey.classList.add("success");
-      //   }
-      // } 
+          currentKey.classList.remove("near-success");
+          currentKey.classList.add("success");
+        }
+      } 
     }
 
     console.log(`offLimitsCount = ${offLimitsCount}`);
