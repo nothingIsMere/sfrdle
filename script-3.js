@@ -1,57 +1,43 @@
-currentWord = "score"; 
+let currentWord = "score";
+let masterLetterArray = []; 
 let gameOver = false;
-let masterLetterList = [];
-const acceptableKeys = ["A", "B", "C", "D", "E", "F", "G",
-"H","I","J","K","L","M","N","O","P","Q","R","S","T","U","V","W","X","Y","Z",
-"a","b","c","d","e","f","g","h","i","j","k","l","m","n","o","p","q","r","s",
-"t","u","v","w","x","y","z","Enter", "Backspace", "ENTER", "BACK"];
-let officialSubmissionCount = 0;   
 
 const letterboxNodeList = document.querySelectorAll(".letterbox");
 let letterboxArray = Array.from(letterboxNodeList);
 
+const acceptableKeys = ["A", "B", "C", "D", "E", "F", "G",
+"H","I","J","K","L","M","N","O","P","Q","R","S","T","U","V","W","X","Y","Z",
+"a","b","c","d","e","f","g","h","i","j","k","l","m","n","o","p","q","r","s",
+"t","u","v","w","x","y","z","Enter", "Backspace", "ENTER", "BACK"];
+
 window.addEventListener("keydown", (e) => {
 
-  if(!acceptableKeys.includes(e.key)){    //INVALID KEY 
+if(!acceptableKeys.includes(e.key)){
+  return; 
+}
+else if(e.key === "Backspace"){
+  if(gameOver){
     return;
   }
-  else if(e.key === "Backspace"){         //BACKSPACE
-    if(gameOver){return;}
-    masterLetterList.pop();
-    letterboxArray[masterLetterList.length].textContent = "";
-    letterboxArray[masterLetterList.length].classList.remove("filled-letterbox"); 
+  masterLetterArray.pop();
+  letterboxArray[masterLetterArray.length].textContent = "";
+  letterboxArray[masterLetterArray.length].classList.remove("filled-letterbox");
+}
+else if(e.key === "Enter"){
+  if(gameOver){
+    return;
+  }
+  console.log(e.key);
+}
+else{
+  if(gameOver){
+    return;
+  }
+  masterLetterArray.push(e.key);
+  letterboxArray[masterLetterArray.length - 1].textContent = e.key.toUpperCase();
+  letterboxArray[masterLetterArray.length - 1].classList.add("filled-letterbox");
+}
 
-  }
-  else if(e.key === "Enter"){              //ENTER
-    if(gameOver){return;}
-    //start building currentSubmission
-    let currentSubmission = "";
-    
-    if(masterLetterList.length%5 != 0){
-      for(let i = masterLetterList.length - masterLetterList.length%5;i<masterLetterList.length;i++){
-        currentSubmission += masterLetterList[i];
-      }
-    }
-    else{
-      for(let i = masterLetterList.length - 5; i<masterLetterList.length;i++){
-        currentSubmission += masterLetterList[i];
-      }
-    }
-    
-    console.log(currentSubmission);
-    //end building currentSubmission
-
-    if(currentSubmission.length < 5){
-      console.log("Not enough letters");
-    }
-     
-  }
-  else{                                   //VALID LETTER
-    if(gameOver){return;}
-    masterLetterList.push(e.key);
-    letterboxArray[masterLetterList.length - 1].textContent = e.key.toUpperCase();
-    letterboxArray[masterLetterList.length - 1].classList.add("filled-letterbox");
-  }
 
 
 })
