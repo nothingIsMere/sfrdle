@@ -3,6 +3,7 @@ let masterLetterArray = [];
 let gameOver = false;
 let currentSubmission = "";
 let offLimitsCount = 0; 
+let submissionCount = 0; 
 
 const letterboxNodeList = document.querySelectorAll(".letterbox");
 let letterboxArray = Array.from(letterboxNodeList);
@@ -49,14 +50,16 @@ else if(e.key === "Enter"){
     console.log(currentSubmission);
   }
 
-  if(currentSubmission.length < 5){
+  if(currentSubmission.length < 5 || masterLetterArray.length/5 == submissionCount){
     alert("not enough letters");
   }
   else{
     offLimitsCount = masterLetterArray.length;
+    submissionCount += 1; 
   }
 
   console.log(`offLimitsCount = ${offLimitsCount}`);
+  console.log(`currentSubmission = ${currentSubmission}`);
 }
 else{
   if(gameOver){
