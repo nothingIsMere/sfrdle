@@ -49,7 +49,7 @@ window.addEventListener("keydown", (e) => {
       currentSubmission = "";
       for(let i=masterLetterArray.length - masterLetterArray.length%5; i < masterLetterArray.length; i++){
         currentSubmission += masterLetterArray[i];
-        currentSubmissionArray = currentSubmission.split("");
+        currentSubmissionArray = Array.from(currentSubmission);
       }
       //BEGIN API REQUEST
       const data = null;
@@ -74,7 +74,7 @@ window.addEventListener("keydown", (e) => {
       currentSubmission = "";
       for(let i=masterLetterArray.length - 5; i < masterLetterArray.length; i++){
         currentSubmission += masterLetterArray[i];
-        currentSubmissionArray = currentSubmission.split("");
+        currentSubmissionArray = Array.from(currentSubmission);
       }
       //BEGIN API REQUEST
       const data = null;
