@@ -107,8 +107,8 @@ window.addEventListener("keydown", (e) => {
       submissionCount += 1;
       letterCount = 0;
       
-      //UPDATE BOXES
-      for(let i = 0; i < currentSubmissionArray.length; i++){
+      //BEGIN UPDATE BOXES
+      for(let i = 0; i < currentSubmissionArray.length; i++){                        //UPDATE SUCCESSES
   
         let currentLetterBox = document.getElementById(`letterbox-${i + (((masterLetterArray.length)/5) - 1)*5}`);
         let currentKey = document.getElementById(`${currentSubmissionArray[i]}`);
@@ -121,7 +121,46 @@ window.addEventListener("keydown", (e) => {
           currentKey.classList.remove("near-success");
           currentKey.classList.add("success");
         }
-      } 
+      }
+      
+      for(let i = 0; i < currentSubmissionArray.length; i++){                               //UPDATE NEAR-SUCCESSES AND FAILS
+          
+        let currentLetterBox = document.getElementById(`letterbox-${i + (((masterLetterArray.length)/5) - 1)*5}`);
+        let currentKey = document.getElementById(`${currentSubmission[i]}`);
+        
+        if(!currentLetterBox.classList.contains("success")){
+          
+          if(currentWordCopyArray.includes(currentSubmission[i])){
+            
+            for(let j = 0; j < currentSubmission.length; j++){
+              
+              if(currentWordCopyArray[j] === currentSubmission[i]){
+                currentWordCopyArray[j] = "*";
+              }
+            
+            }
+            
+            currentLetterBox.classList.remove("filled-letterbox");
+            currentLetterBox.classList.add("near-success");
+            
+            if(!currentKey.classList.contains("success")){
+              currentKey.classList.add("near-success");
+            }
+          
+          }
+          else{
+            
+            currentLetterBox.classList.remove("filled-letterbox");
+            currentLetterBox.classList.add("fail");
+
+            if(!currentKey.classList.contains("success") & !currentKey.classList.contains("near-success")){
+              currentKey.classList.add("fail");
+            }
+          }
+        }
+
+      }
+      //END UPDATE BOXES 
     }
 
     console.log(`offLimitsCount = ${offLimitsCount}`);
