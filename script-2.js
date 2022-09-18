@@ -1,3 +1,4 @@
+let currentWord = "score";
 let wordList = [
     "score",
     "draft",
@@ -43,7 +44,7 @@ const acceptableKeys = ["A", "B", "C", "D", "E", "F", "G",
 "a","b","c","d","e","f","g","h","i","j","k","l","m","n","o","p","q","r","s",
 "t","u","v","w","x","y","z","Enter", "Backspace", "ENTER", "BACK"];
 
-const currentWord = wordList[Math.floor(Math.random() * (wordList.length))];
+// const currentWord = wordList[Math.floor(Math.random() * (wordList.length))];
 let currentWordCopy = currentWord;
 let currentWordArray = Array.from(currentWord);
 let currentWordCopyArray = Array.from(currentWord); 
@@ -80,8 +81,6 @@ for(let i = 0; i < letterboxNodeList.length; i++){ //assigning ids to letterboxe
 
 }
 
-
-
 window.addEventListener("keydown", (e) => {
 
     if(!acceptableKeys.includes(e.key)){    //INVALID KEY 
@@ -96,11 +95,11 @@ window.addEventListener("keydown", (e) => {
         xhr.withCredentials = true;
 
         xhr.addEventListener("readystatechange", function () {
-        if (this.readyState === this.DONE) {
-            if(this.status === 404 && !supplementalWordList.includes(testWordString)){
-            isWord = false; 
+            if (this.readyState === this.DONE) {
+                if(this.status === 404 && !supplementalWordList.includes(testWordString)){
+                isWord = false; 
+                }
             }
-        }
         });
 
         xhr.open("GET", `https://wordsapiv1.p.rapidapi.com/words/${testWordString.toLowerCase()}`, false);
@@ -110,6 +109,7 @@ window.addEventListener("keydown", (e) => {
         xhr.send(data);
         //end API request   
             
+        //If user hasn't entered enough letters yet
         if(masterGuessList.length%5 != 0 || parseInt(masterGuessList.length/5) === guessCount){
             warningText.textContent = `Not enough letters`;
             modalWarning.style.display = "flex";
@@ -118,6 +118,7 @@ window.addEventListener("keydown", (e) => {
             }, 1200); 
             return;
         }
+        //if user enters an invalid word 
         else if(isWord === false){
             warningText.textContent = `Not in word list`;
             modalWarning.style.display = "flex";
@@ -125,24 +126,48 @@ window.addEventListener("keydown", (e) => {
                 modalWarning.style.display = "none";
             }, 1200); 
         }
+        //if user enters a valid word
         else{
-            //Update boxes and keys as needed 
 
-            if(gameOver === true){
+            if(gameOver === true){     
                 return;
             }
-
-            if(masterGuessList.length%5 === 0 & masterGuessList.length > 0){
+            else if(masterGuessList.length === 30 & successCount != 5){
+                warningText.textContent = `${currentWord.toUpperCase()}`;
+                modalWarning.style.display = "flex";
+                setTimeout(() => {
+                    modalWarning.style.display = "none";
+                }, 1200);
+            }
+            else if(successCount === 5){
+                letterCount = 5;
+                let guessCountText = document.createTextNode(`${masterGuessList.length/5}/6`);
+                let guessCountPara = document.createElement("p");
+                guessCountPara.appendChild(guessCountText);
+                gameOverText.innerHTML += "<br>"; 
+                gameOverText.appendChild(guessCountPara);
+                setTimeout(() => {
+                  modalGameOver.style.display = "flex";
+                }, 1050);
+                gameOver = true;
+            } 
+            else{                                                    //UPDATE BOXES AND KEYS 
                 currentWordCopyArray = currentWordArray.slice(0); 
                 letterCount = 0;
                 offLimitsCount = masterGuessList.length; 
                 successCount = 0;
                 guessCount = masterGuessList.length/5;
                 console.log(`guessCount = ${guessCount}`);
-                console.log(`parseInt(masterGuessList.length/5) = ${parseInt(masterGuessList.length/5)}`); 
+                console.log(parseInt(masterGuessList.length/5));
+                
+                for(let i = masterGuessList.length - 5; i < masterGuessList.length; i++){
+                    testWordArray.push(masterGuessList[i]);
+                } 
             }
 
             testWordString = "";
+
+            
         }
 
     }
@@ -155,7 +180,6 @@ window.addEventListener("keydown", (e) => {
             }
         
         testWordString = testWordString.slice(0,testWordString.length - 1);
-        console.log(testWordString);
         if(letterCount > 0){
             letterCount -= 1;
         }
@@ -170,8 +194,7 @@ window.addEventListener("keydown", (e) => {
             return;
         }
         
-        testWordString += e.key;
-        console.log(testWordString);            
+        testWordString += e.key;         
         letterCount += 1;
 
         masterGuessList.push(e.key);
