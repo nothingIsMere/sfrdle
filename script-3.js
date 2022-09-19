@@ -1,4 +1,4 @@
-let currentWord = "score";
+let currentWord = "abbey";
 let currentWordArray = currentWord.split("");
 let currentWordCopy = currentWord;
 let currentWordCopyArray = Array.from(currentWord); 
@@ -108,20 +108,28 @@ window.addEventListener("keydown", (e) => {
       letterCount = 0;
       
       //BEGIN UPDATE BOXES
-      for(let i = 0; i < currentSubmissionArray.length; i++){                        //UPDATE SUCCESSES
+      for(let i = 0; i < currentSubmissionArray.length; i++){                         //UPDATE SUCCESSES
         
         let currentLetterBox = document.getElementById(`letterbox-${i + (((masterLetterArray.length)/5) - 1)*5}`);
         let currentKey = document.getElementById(`${currentSubmissionArray[i]}`);
 
-        if(currentWordCopyArray[i] === currentSubmissionArray[i]){
+        if(currentWordArray[i] === currentSubmissionArray[i]){
           currentLetterBox.classList.remove("filled-letterbox");
           currentLetterBox.classList.add("success");
+          currentWordCopyArray[i] = "*";
 
+          currentKey.classList.remove("near-success");
           currentKey.classList.add("success");
         }
       }
 
-                                                                                     //UPDATE NEAR-SUCCESSES AND FAILS
+      for(let i = 0; i < currentSubmissionArray.length; i++){                         //UPDATE NEAR-SUCCESSES AND FAILS
+        
+        let currentLetterBox = document.getElementById(`letterbox-${i + (((masterLetterArray.length)/5) - 1)*5}`);
+        let currentKey = document.getElementById(`${currentSubmissionArray[i]}`);
+
+      
+      }                                                                              
         
       
                                                                                      //END UPDATE BOXES 
