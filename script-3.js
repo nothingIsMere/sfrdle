@@ -138,7 +138,13 @@ window.addEventListener("keydown", (e) => {
             if(!currentKey.classList.contains("success") && !currentKey.classList.contains("near-success")){
               currentKey.classList.add("near-success");
             }
-            currentWordCopyArray[i] = "*"; //this is wrong. Need to asterisk the spot where the current letter is located! 
+
+            for(let j = 0; j < currentSubmissionArray.length; j++){
+              if(currentWordCopyArray[j] === currentSubmissionArray[i]){
+                currentWordCopyArray[j] = "*";
+              }
+            }
+             
           }
           else{
             currentLetterBox.classList.add("fail");
