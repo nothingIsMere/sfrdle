@@ -10,6 +10,9 @@ let submissionCount = 0;
 let letterCount = 0; 
 let isWord = true; 
 
+const modalWarning = document.getElementById("modal-warning"); 
+let warningText = document.getElementById("warning-text");
+
 const letterboxNodeList = document.querySelectorAll(".letterbox");
 let letterboxArray = Array.from(letterboxNodeList);
 
@@ -71,6 +74,7 @@ window.addEventListener("keydown", (e) => {
       console.log(currentSubmissionArray);
     }
     else if(masterLetterArray.length%5 === 0){
+      isWord = true;
       currentSubmission = "";
       for(let i = masterLetterArray.length - 5; i < masterLetterArray.length; i++){
         currentSubmission += masterLetterArray[i];
@@ -97,10 +101,19 @@ window.addEventListener("keydown", (e) => {
     }
 
     if(currentSubmission.length < 5 || masterLetterArray.length/5 == submissionCount){   //ENTER>NOT ENOUGH LETTERS
-      alert("Not enough letters");
+        modalWarning.style.display = "flex";
+        warningText.textContent = `Not enough letters`;
+        setTimeout(() => {
+          modalWarning.style.display = "none";
+        }, 1200); 
+        return;
     }
     else if(isWord === false){                                                          //ENTER>INVALID WORD
-      alert("Not in word list");
+      warningText.textContent = `Not in word list`;
+      modalWarning.style.display = "flex";
+      setTimeout(() => {
+          modalWarning.style.display = "none";
+      }, 1200); 
     }
     else{
       offLimitsCount = masterLetterArray.length;
