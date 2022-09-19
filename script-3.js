@@ -148,7 +148,7 @@ window.addEventListener("keydown", (e) => {
           }
           else{
             currentLetterBox.classList.add("fail");
-            if(!currentKey.classList.contains("success")){
+            if(!currentKey.classList.contains("success") && !currentKey.classList.contains("near-success")){
               currentKey.classList.add("fail");
             }
           }
