@@ -47,7 +47,7 @@ window.addEventListener("keydown", (e) => {
     
     if(masterLetterArray.length%5 != 0){
       currentSubmission = "";
-      for(let i=masterLetterArray.length - masterLetterArray.length%5; i < masterLetterArray.length; i++){
+      for(let i = masterLetterArray.length - masterLetterArray.length%5; i < masterLetterArray.length; i++){
         currentSubmission += masterLetterArray[i];
         currentSubmissionArray = Array.from(currentSubmission);
       }
@@ -72,7 +72,7 @@ window.addEventListener("keydown", (e) => {
     }
     else if(masterLetterArray.length%5 === 0){
       currentSubmission = "";
-      for(let i=masterLetterArray.length - 5; i < masterLetterArray.length; i++){
+      for(let i = masterLetterArray.length - 5; i < masterLetterArray.length; i++){
         currentSubmission += masterLetterArray[i];
         currentSubmissionArray = Array.from(currentSubmission);
       }
