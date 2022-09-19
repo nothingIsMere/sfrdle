@@ -109,58 +109,22 @@ window.addEventListener("keydown", (e) => {
       
       //BEGIN UPDATE BOXES
       for(let i = 0; i < currentSubmissionArray.length; i++){                        //UPDATE SUCCESSES
-  
+        
         let currentLetterBox = document.getElementById(`letterbox-${i + (((masterLetterArray.length)/5) - 1)*5}`);
         let currentKey = document.getElementById(`${currentSubmissionArray[i]}`);
 
         if(currentWordCopyArray[i] === currentSubmissionArray[i]){
           currentLetterBox.classList.remove("filled-letterbox");
           currentLetterBox.classList.add("success");
-          currentWordCopyArray[i] = "*";
 
-          currentKey.classList.remove("near-success");
           currentKey.classList.add("success");
         }
       }
-      
-      for(let i = 0; i < currentSubmissionArray.length; i++){                               //UPDATE NEAR-SUCCESSES AND FAILS
-          
-        let currentLetterBox = document.getElementById(`letterbox-${i + (((masterLetterArray.length)/5) - 1)*5}`);
-        let currentKey = document.getElementById(`${currentSubmission[i]}`);
+
+                                                                                     //UPDATE NEAR-SUCCESSES AND FAILS
         
-        if(!currentLetterBox.classList.contains("success")){
-          
-          if(currentWordCopyArray.includes(currentSubmission[i])){
-            
-            for(let j = 0; j < currentSubmission.length; j++){
-              
-              if(currentWordCopyArray[j] === currentSubmission[i]){
-                currentWordCopyArray[j] = "*";
-              }
-            
-            }
-            
-            currentLetterBox.classList.remove("filled-letterbox");
-            currentLetterBox.classList.add("near-success");
-            
-            if(!currentKey.classList.contains("success")){
-              currentKey.classList.add("near-success");
-            }
-          
-          }
-          else{
-            
-            currentLetterBox.classList.remove("filled-letterbox");
-            currentLetterBox.classList.add("fail");
-
-            if(!currentKey.classList.contains("success") & !currentKey.classList.contains("near-success")){
-              currentKey.classList.add("fail");
-            }
-          }
-        }
-
-      }
-      //END UPDATE BOXES 
+      
+                                                                                     //END UPDATE BOXES 
     }
 
     console.log(`offLimitsCount = ${offLimitsCount}`);
