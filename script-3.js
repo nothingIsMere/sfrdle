@@ -118,8 +118,11 @@ window.addEventListener("keydown", (e) => {
           currentLetterBox.classList.add("success");
           currentWordCopyArray[i] = "*";
 
-          currentKey.classList.remove("near-success");
-          currentKey.classList.add("success");
+          if(!currentKey.classList.contains("success")){
+            currentKey.classList.remove("near-success");
+            currentKey.classList.add("success");
+          }
+          
         }
       }
 
@@ -128,11 +131,28 @@ window.addEventListener("keydown", (e) => {
         let currentLetterBox = document.getElementById(`letterbox-${i + (((masterLetterArray.length)/5) - 1)*5}`);
         let currentKey = document.getElementById(`${currentSubmissionArray[i]}`);
 
+        if(!currentLetterBox.classList.includes("success")){
+          if(currentWordCopyArray.includes(currentSubmissionArray[i])){
+            currentLetterBox.classList.remove("filled-letterbox");
+            currentLetterBox.classList.add("near-success");
+            if(!currentKey.classList.contains("success") && !currentKey.classList.contains("near-success")){
+              currentKey.classList.add("near-success");
+            }
+            currentWordCopyArray[i] = "*"; //this is wrong. Need to asterisk the spot where the current letter is located! 
+          }
+          else{
+            currentLetterBox.classList.add("fail");
+            if(!currentKey.classList.contains("success")){
+              currentKey.classList.add("fail");
+            }
+          }
+        }
+      }
+
+      }  
       
-      }                                                                              
+      currentWordCopyArray = Array.from(currentWord);
         
-      
-                                                                                     //END UPDATE BOXES 
     }
 
     console.log(`offLimitsCount = ${offLimitsCount}`);
