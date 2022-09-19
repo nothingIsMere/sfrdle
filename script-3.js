@@ -131,7 +131,7 @@ window.addEventListener("keydown", (e) => {
         let currentLetterBox = document.getElementById(`letterbox-${i + (((masterLetterArray.length)/5) - 1)*5}`);
         let currentKey = document.getElementById(`${currentSubmissionArray[i]}`);
 
-        if(!currentLetterBox.classList.includes("success")){
+        if(!currentLetterBox.classList.contains("success")){
           if(currentWordCopyArray.includes(currentSubmissionArray[i])){
             currentLetterBox.classList.remove("filled-letterbox");
             currentLetterBox.classList.add("near-success");
@@ -155,12 +155,10 @@ window.addEventListener("keydown", (e) => {
         }
       }
 
-      }  
+    }  
       
-      currentWordCopyArray = Array.from(currentWord);
-        
-    }
-
+    currentWordCopyArray = Array.from(currentWord);
+      
     console.log(`offLimitsCount = ${offLimitsCount}`);
     console.log(`currentSubmission = ${currentSubmission}`);
     console.log(`submissionCount = ${submissionCount}`);
@@ -184,8 +182,6 @@ window.addEventListener("keydown", (e) => {
 
     }
 
-}
-
-
+  }
 
 })
