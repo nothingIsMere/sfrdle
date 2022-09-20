@@ -24,7 +24,7 @@ header {
   margin-top: 35px;
   font-size: 150%;
   min-width: 100%;
-  border-bottom: .125px solid lightgrey;
+  /* border-bottom: .125px solid lightgrey; */
 }
 
 header h1 {
