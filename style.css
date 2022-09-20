@@ -39,6 +39,7 @@ header h1 {
   height: 50%;
   min-width: 375px;
   gap: 5px;
+  margin-bottom: 20px;
 }
 
 .guess {
@@ -70,7 +71,7 @@ header h1 {
   height: 22%;
   min-width: 500px;
   /* border: 1px solid black; */
-  margin-bottom: 15px;
+  margin-bottom: 35px;
 }
 
 .keybd-row {

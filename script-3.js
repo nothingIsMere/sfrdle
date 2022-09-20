@@ -1,4 +1,45 @@
-let currentWord = "abbey";
+let wordList = [
+  "score",
+  "draft",
+  "trade",
+  "cheat",
+  "hoops",
+  "kevin",
+  "brian",
+  "champ",
+  "title",
+  "point",
+  "steal",
+  "block",
+  "bulls",
+  "magic",
+  "squad",
+  "greek",
+  "celts",
+  "kyrie",
+  "bucks",
+  "kings",
+  "hawks",
+  "spurs",
+  "class",
+  "games",
+  "court",
+  "three",
+  "shots",
+  "swish",
+  "guard",
+  "shoot",
+  ];
+let supplementalWordList = [ //words we want to be valid but which aren't in wordsAPI dictionary, mostly player names
+  "kawhi",
+  "rubio",
+  "ayton",
+  "tatum",
+  "jokic",
+];
+
+
+const currentWord = wordList[Math.floor(Math.random() * (wordList.length))];
 let currentWordArray = currentWord.split("");
 let currentWordCopy = currentWord;
 let currentWordCopyArray = Array.from(currentWord); 
@@ -9,9 +50,18 @@ let offLimitsCount = 0;
 let submissionCount = 0;
 let letterCount = 0; 
 let isWord = true; 
+let successCount = 0;
 
 const modalWarning = document.getElementById("modal-warning"); 
 let warningText = document.getElementById("warning-text");
+
+const modalGameOver = document.getElementById("modal-game-over");
+const gameOverText = document.getElementById("text-container");
+
+const closeBtn = document.getElementById("close");
+closeBtn.onclick = function() {
+  modalGameOver.style.display = "none";
+}
 
 const letterboxNodeList = document.querySelectorAll(".letterbox");
 let letterboxArray = Array.from(letterboxNodeList);
@@ -20,7 +70,8 @@ const acceptableKeys = ["A", "B", "C", "D", "E", "F", "G",
 "H","I","J","K","L","M","N","O","P","Q","R","S","T","U","V","W","X","Y","Z",
 "a","b","c","d","e","f","g","h","i","j","k","l","m","n","o","p","q","r","s",
 "t","u","v","w","x","y","z","Enter", "Backspace", "ENTER", "BACK"];
-let supplementalWordList = [];
+
+
 
 window.addEventListener("keydown", (e) => {
 
@@ -29,7 +80,7 @@ window.addEventListener("keydown", (e) => {
   }
   else if(e.key === "Backspace"){ 
     isWord = true;                                                       //BACKSPACE
-    if(gameOver){
+    if(gameOver){ 
       return;
     }
     if(letterCount > 0){
@@ -115,7 +166,7 @@ window.addEventListener("keydown", (e) => {
           modalWarning.style.display = "none";
       }, 1200); 
     }
-    else{
+    else{                                                                               //ENTER>VALID WORD                                                                           
       offLimitsCount = masterLetterArray.length;
       submissionCount += 1;
       letterCount = 0;
@@ -135,6 +186,8 @@ window.addEventListener("keydown", (e) => {
             currentKey.classList.remove("near-success");
             currentKey.classList.add("success");
           }
+
+          successCount += 1; 
           
         }
       }
@@ -167,7 +220,6 @@ window.addEventListener("keydown", (e) => {
           }
         }
       }
-
     }  
       
     currentWordCopyArray = Array.from(currentWord);
@@ -175,6 +227,30 @@ window.addEventListener("keydown", (e) => {
     console.log(`offLimitsCount = ${offLimitsCount}`);
     console.log(`currentSubmission = ${currentSubmission}`);
     console.log(`submissionCount = ${submissionCount}`);
+
+    if(masterLetterArray.length === 30 & successCount != 5 && isWord === true){
+      let loserDisplay = document.getElementById("warning-text");
+      warningText.textContent = `${currentWord.toUpperCase()}`;
+      modalWarning.style.display = "flex";
+      setTimeout(() => {
+        modalWarning.style.display = "none";
+      }, 1200);
+    }
+
+    if(successCount === 5){
+      letterCount = 5;
+      let guessCount = document.createTextNode(`${masterLetterArray.length/5}/6`);
+      let guessCountPara = document.createElement("p");
+      guessCountPara.appendChild(guessCount);
+      gameOverText.innerHTML += "<br>"; 
+      gameOverText.appendChild(guessCountPara);
+      setTimeout(() => {
+        modalGameOver.style.display = "flex";
+      }, 1050);
+      gameOver = true; 
+    }
+
+    successCount = 0; 
   }
   else{                                                                                    //VALID LETTER
     if(gameOver){
