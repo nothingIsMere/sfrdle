@@ -25,10 +25,23 @@ let wordList = [
   "games",
   "court",
   "three",
-  "shots",
   "swish",
   "guard",
   "shoot",
+  "coach",
+  "drive",
+  "brick",
+  "pivot",
+  "paint",
+  "press",
+  "strike",
+  "layup",
+  "board",
+  "bench",
+  "bonus",
+  "stats",
+  "curry",
+
   ];
 let supplementalWordList = [ //words we want to be valid but which aren't in wordsAPI dictionary, mostly player names
   "kawhi",
@@ -36,6 +49,17 @@ let supplementalWordList = [ //words we want to be valid but which aren't in wor
   "ayton",
   "tatum",
   "jokic",
+  "herro",
+  "lowry",
+  "zubac",
+  "hield",
+  "bamba",
+  "poole",
+  "kuzma",
+  "franz",
+  "kemba",
+  "lopez",
+  "paolo",
 ];
 
 
@@ -121,8 +145,6 @@ window.addEventListener("keydown", (e) => {
       xhr.setRequestHeader("X-RapidAPI-Host", "wordsapiv1.p.rapidapi.com");
       xhr.send(data);
       //END API REQUEST
-      console.log(currentSubmission);
-      console.log(currentSubmissionArray);
     }
     else if(masterLetterArray.length%5 === 0){
       isWord = true;
@@ -147,8 +169,6 @@ window.addEventListener("keydown", (e) => {
       xhr.setRequestHeader("X-RapidAPI-Host", "wordsapiv1.p.rapidapi.com");
       xhr.send(data);
       //END API REQUEST
-      console.log(currentSubmission);
-      console.log(currentSubmissionArray);
     }
 
     if(currentSubmission.length < 5 || masterLetterArray.length/5 == submissionCount){   //ENTER>NOT ENOUGH LETTERS
@@ -213,6 +233,7 @@ window.addEventListener("keydown", (e) => {
              
           }
           else{
+            currentLetterBox.classList.remove("filled-letterbox");
             currentLetterBox.classList.add("fail");
             if(!currentKey.classList.contains("success") && !currentKey.classList.contains("near-success")){
               currentKey.classList.add("fail");
@@ -223,10 +244,6 @@ window.addEventListener("keydown", (e) => {
     }  
       
     currentWordCopyArray = Array.from(currentWord);
-      
-    console.log(`offLimitsCount = ${offLimitsCount}`);
-    console.log(`currentSubmission = ${currentSubmission}`);
-    console.log(`submissionCount = ${submissionCount}`);
 
     if(masterLetterArray.length === 30 & successCount != 5 && isWord === true){
       let loserDisplay = document.getElementById("warning-text");
@@ -267,10 +284,9 @@ window.addEventListener("keydown", (e) => {
 
       letterCount += 1;
 
-      console.log(`masterLetterArray.length = ${masterLetterArray.length}`);
-
     }
 
   }
 
 })
+
