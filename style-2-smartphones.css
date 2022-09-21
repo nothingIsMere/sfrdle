@@ -13,6 +13,7 @@ body {
   /* min-height: 100vh; */
   min-width: 100vh;
   background: #BACFE4 url("./img/smoke-3.jpg") no-repeat left center/cover;
+  overflow: hidden;
   /* height: 100vh; 
   height: calc(var(--vh, 1vh) * 100); */
 }
