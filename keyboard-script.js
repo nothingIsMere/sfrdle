@@ -249,7 +249,6 @@ for(let i = 0; i < keyNodeList.length; i++){
       currentWordCopyArray = Array.from(currentWord);
   
       if(masterLetterArray.length === 30 & successCount != 5 && isWord === true){
-        gameOver = true;
         let loserDisplay = document.getElementById("warning-text");
         warningText.textContent = `${currentWord.toUpperCase()}`;
         modalWarning.style.display = "flex";

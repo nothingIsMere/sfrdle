@@ -1,10 +1,3 @@
-const resizeOps = () => {
-  document.documentElement.style.setProperty("--vh", window.innerHeight * 0.01 + "px");
-};
-
-resizeOps();
-window.addEventListener("resize", resizeOps);
-
 let wordList = [
   "score",
   "draft",
@@ -82,14 +75,6 @@ let submissionCount = 0;
 let letterCount = 0; 
 let isWord = true; 
 let successCount = 0;
-
-// let vh = window.innerHeight * 0.01;
-// document.documentElement.style.setProperty('--vh', `${vh}px`);
-
-// window.addEventListener('resize', () => {
-//   let vh = window.innerHeight * 0.01;
-//   document.documentElement.style.setProperty('--vh', `${vh}px`);
-// });
 
 const modalWarning = document.getElementById("modal-warning"); 
 let warningText = document.getElementById("warning-text");
@@ -261,7 +246,6 @@ window.addEventListener("keydown", (e) => {
     currentWordCopyArray = Array.from(currentWord);
 
     if(masterLetterArray.length === 30 & successCount != 5 && isWord === true){
-      gameOver = true;
       let loserDisplay = document.getElementById("warning-text");
       warningText.textContent = `${currentWord.toUpperCase()}`;
       modalWarning.style.display = "flex";
