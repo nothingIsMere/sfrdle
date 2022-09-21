@@ -1,6 +1,6 @@
-html {
-  height: 100%;
-  overflow: hidden;
+html, body {
+  height: 100vh;
+  height: calc(var(--vh, 1vh) * 100);
 }
 
 body * {
@@ -15,7 +15,7 @@ body {
   flex-direction: column;
   align-items: center;
   justify-content: space-between;
-  height: 100vh;
+  /* height: 100vh; */
   min-width: 100vh;
   background: #BACFE4 url("./img/smoke-3.jpg") no-repeat right center/cover;
   /* height: 100vh; 
