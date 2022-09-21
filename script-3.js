@@ -76,6 +76,17 @@ let letterCount = 0;
 let isWord = true; 
 let successCount = 0;
 
+// First we get the viewport height and we multiple it by 1% to get a value for a vh unit
+let vh = window.innerHeight * 0.01;
+// Then we set the value in the --vh custom property to the root of the document
+document.documentElement.style.setProperty('--vh', `${vh}px`);
+
+window.addEventListener('resize', () => {
+  // We execute the same script as before
+  let vh = window.innerHeight * 0.01;
+  document.documentElement.style.setProperty('--vh', `${vh}px`);
+});
+
 const modalWarning = document.getElementById("modal-warning"); 
 let warningText = document.getElementById("warning-text");
 
@@ -246,6 +257,7 @@ window.addEventListener("keydown", (e) => {
     currentWordCopyArray = Array.from(currentWord);
 
     if(masterLetterArray.length === 30 & successCount != 5 && isWord === true){
+      gameOver = true;
       let loserDisplay = document.getElementById("warning-text");
       warningText.textContent = `${currentWord.toUpperCase()}`;
       modalWarning.style.display = "flex";

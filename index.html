@@ -5,131 +5,129 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Sfrdle</title>
-    <!-- <link rel="stylesheet" href="style.css"> -->
     <link rel="stylesheet" href="style-2.css">
-    <!-- <script src="script.js" defer></script> -->
-    <!-- <script src="script-2.js" defer></script> -->
+    <link rel="stylesheet" media="screen and (max-width: 767px)" href="style-2-smartphones.css">
     <script src="script-3.js" defer></script>
     <script src="keyboard-script.js" defer></script>
 </head>
 <body>
 
-    <header>
-        <h1>Sfrdle</h1>
-        <!-- <hr> -->
-    </header>
-
-    <div id="modal-warning">
-          <p id = "warning-text">Not enough letters</p>
-    </div>
-
-    <div id="modal-game-over">
-        <div id="close-container">
-            <div id="close">&times;</div>
-        </div>
-        <div id="text-container">
-            <p id = "game-over-text">You win!</p>
-        </div>
-    </div>
-
-    <div class="guess-container">
-        
-        <div class="guess">
-            <div class="letterbox" id="letterbox-0"></div>
-            <div class="letterbox" id="letterbox-1"></div>
-            <div class="letterbox" id="letterbox-2"></div>
-            <div class="letterbox" id="letterbox-3"></div>
-            <div class="letterbox" id="letterbox-4"></div>
-        </div>
-        
-        <div class="guess">
-            <div class="letterbox" id="letterbox-5"></div>
-            <div class="letterbox" id="letterbox-6"></div>
-            <div class="letterbox" id="letterbox-7"></div>
-            <div class="letterbox" id="letterbox-8"></div>
-            <div class="letterbox" id="letterbox-9"></div>
-        </div>
-        
-        <div class="guess">
-            <div class="letterbox" id="letterbox-10"></div>
-            <div class="letterbox" id="letterbox-11"></div>
-            <div class="letterbox" id="letterbox-12"></div>
-            <div class="letterbox" id="letterbox-13"></div>
-            <div class="letterbox" id="letterbox-14"></div>
-        </div>
-        
-        <div class="guess">
-            <div class="letterbox" id="letterbox-15"></div>
-            <div class="letterbox" id="letterbox-16"></div>
-            <div class="letterbox" id="letterbox-17"></div>
-            <div class="letterbox" id="letterbox-18"></div>
-            <div class="letterbox" id="letterbox-19"></div>
-        </div>
-        
-        <div class="guess">
-            <div class="letterbox" id="letterbox-20"></div>
-            <div class="letterbox" id="letterbox-21"></div>
-            <div class="letterbox" id="letterbox-22"></div>
-            <div class="letterbox" id="letterbox-23"></div>
-            <div class="letterbox" id="letterbox-24"></div>
-        </div>
-        
-        <div class="guess">
-            <div class="letterbox" id="letterbox-25"></div>
-            <div class="letterbox" id="letterbox-26"></div>
-            <div class="letterbox" id="letterbox-27"></div>
-            <div class="letterbox" id="letterbox-28"></div>
-            <div class="letterbox" id="letterbox-29"></div>
+        <header>
+            <h1>Sfrdle</h1>
+            <!-- <hr> -->
+        </header>
+    
+        <div id="modal-warning">
+              <p id = "warning-text">Not enough letters</p>
         </div>
     
-    </div>
-
-    <div class="keyboard-container">
-        
-        <div class="keybd-row keybd-row-1">
-            
-            <button class = "key" id = "q">Q</button>
-            <button class = "key" id = "w">W</button>
-            <button class = "key" id = "e">E</button>
-            <button class = "key" id = "r">R</button>
-            <button class = "key" id = "t">T</button>
-            <button class = "key" id = "y">Y</button>
-            <button class = "key" id = "u">U</button>
-            <button class = "key" id = "i">I</button>
-            <button class = "key" id = "o">O</button>
-            <button class = "key" id = "p">P</button>
-        
+        <div id="modal-game-over">
+            <div id="close-container">
+                <div id="close">&times;</div>
+            </div>
+            <div id="text-container">
+                <p id = "game-over-text">You win!</p>
+            </div>
         </div>
-        
-        <div class="keybd-row keybd-row-2">
+    
+        <div class="guess-container">
             
-            <button class = "key" id = "a">A</button>
-            <button class = "key" id = "s">S</button>
-            <button class = "key" id = "d">D</button>
-            <button class = "key" id = "f">F</button>
-            <button class = "key" id = "g">G</button>
-            <button class = "key" id = "h">H</button>
-            <button class = "key" id = "j">J</button>
-            <button class = "key" id = "k">K</button>
-            <button class = "key" id = "l">L</button>
-        
-        </div>
-        
-        <div class="keybd-row keybd-row-3">
+            <div class="guess">
+                <div class="letterbox" id="letterbox-0"></div>
+                <div class="letterbox" id="letterbox-1"></div>
+                <div class="letterbox" id="letterbox-2"></div>
+                <div class="letterbox" id="letterbox-3"></div>
+                <div class="letterbox" id="letterbox-4"></div>
+            </div>
             
-            <button class = "key" id = "ENTER">ENTER</button>
-            <button class = "key" id = "z">Z</button>
-            <button class = "key" id = "x">X</button>
-            <button class = "key" id = "c">C</button>
-            <button class = "key" id = "v">V</button>
-            <button class = "key" id = "b">B</button>
-            <button class = "key" id = "n">N</button>
-            <button class = "key" id = "m">M</button>
-            <button class = "key" id = "BACKSPACE">BACK</button>
+            <div class="guess">
+                <div class="letterbox" id="letterbox-5"></div>
+                <div class="letterbox" id="letterbox-6"></div>
+                <div class="letterbox" id="letterbox-7"></div>
+                <div class="letterbox" id="letterbox-8"></div>
+                <div class="letterbox" id="letterbox-9"></div>
+            </div>
+            
+            <div class="guess">
+                <div class="letterbox" id="letterbox-10"></div>
+                <div class="letterbox" id="letterbox-11"></div>
+                <div class="letterbox" id="letterbox-12"></div>
+                <div class="letterbox" id="letterbox-13"></div>
+                <div class="letterbox" id="letterbox-14"></div>
+            </div>
+            
+            <div class="guess">
+                <div class="letterbox" id="letterbox-15"></div>
+                <div class="letterbox" id="letterbox-16"></div>
+                <div class="letterbox" id="letterbox-17"></div>
+                <div class="letterbox" id="letterbox-18"></div>
+                <div class="letterbox" id="letterbox-19"></div>
+            </div>
+            
+            <div class="guess">
+                <div class="letterbox" id="letterbox-20"></div>
+                <div class="letterbox" id="letterbox-21"></div>
+                <div class="letterbox" id="letterbox-22"></div>
+                <div class="letterbox" id="letterbox-23"></div>
+                <div class="letterbox" id="letterbox-24"></div>
+            </div>
+            
+            <div class="guess">
+                <div class="letterbox" id="letterbox-25"></div>
+                <div class="letterbox" id="letterbox-26"></div>
+                <div class="letterbox" id="letterbox-27"></div>
+                <div class="letterbox" id="letterbox-28"></div>
+                <div class="letterbox" id="letterbox-29"></div>
+            </div>
         
         </div>
     
-    </div>
-    
+        <div class="keyboard-container">
+            
+            <div class="keybd-row keybd-row-1">
+                
+                <button class = "key" id = "q">Q</button>
+                <button class = "key" id = "w">W</button>
+                <button class = "key" id = "e">E</button>
+                <button class = "key" id = "r">R</button>
+                <button class = "key" id = "t">T</button>
+                <button class = "key" id = "y">Y</button>
+                <button class = "key" id = "u">U</button>
+                <button class = "key" id = "i">I</button>
+                <button class = "key" id = "o">O</button>
+                <button class = "key" id = "p">P</button>
+            
+            </div>
+            
+            <div class="keybd-row keybd-row-2">
+                
+                <button class = "key" id = "a">A</button>
+                <button class = "key" id = "s">S</button>
+                <button class = "key" id = "d">D</button>
+                <button class = "key" id = "f">F</button>
+                <button class = "key" id = "g">G</button>
+                <button class = "key" id = "h">H</button>
+                <button class = "key" id = "j">J</button>
+                <button class = "key" id = "k">K</button>
+                <button class = "key" id = "l">L</button>
+            
+            </div>
+            
+            <div class="keybd-row keybd-row-3">
+                
+                <button class = "key" id = "ENTER">ENTER</button>
+                <button class = "key" id = "z">Z</button>
+                <button class = "key" id = "x">X</button>
+                <button class = "key" id = "c">C</button>
+                <button class = "key" id = "v">V</button>
+                <button class = "key" id = "b">B</button>
+                <button class = "key" id = "n">N</button>
+                <button class = "key" id = "m">M</button>
+                <button class = "key" id = "BACKSPACE">BACK</button>
+            
+            </div>
+        
+        </div>
+
 </body>
 </html>
