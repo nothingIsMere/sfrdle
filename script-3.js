@@ -41,7 +41,7 @@ let wordList = [
   "bonus",
   "stats",
   "curry",
-
+  "goose",
   ];
 let supplementalWordList = [ //words we want to be valid but which aren't in wordsAPI dictionary, mostly player names
   "kawhi",
